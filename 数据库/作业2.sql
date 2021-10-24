@@ -215,9 +215,11 @@ select j.jno,spj.sno,COUNT(SPJ.qty)as'个数'
 from j left outer join spj on j.jno=spj.jno
 group by j.jno,spj.sno
 --3．	求供应工程使用零件P3数量超过200的工程号JNO
-select spj.jno
+select spj.jno--此例说明如果想把聚合函数结果当作查询条件，那么只能用groupby啦
 from spj
-where spj.pno='p3' and spj.qty>200
+where spj.pno='p3'
+group by spj.jno 
+having SUM(spj.qty)>200
 --4．	求颜色为红色和蓝色的零件的零件号和名称
 select p.pno,p.pname
 from p
