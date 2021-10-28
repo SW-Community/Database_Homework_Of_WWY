@@ -191,9 +191,24 @@ where exists(
 	)
 )
 --21.	查询选课门数少于网络工程专业某个学生的选课门数的学生的学号，姓名和选课门数
-
+select xs.学号,xs.姓名,COUNT(cj.课程号)
+from xs left outer join cj on xs.学号=cj.学号
+group by xs.学号,xs.姓名
+having COUNT(cj.课程号)<any(
+	select COUNT(cj1.课程号)
+	from xs as xs1 left outer join cj as cj1 on xs1.学号=cj1.学号
+	where xs1.专业='网络工程'
+	group by xs1.学号,xs1.姓名
+)
 --22.	查询选课人数超过英语的选课人数的课程的课程号，课程名和人数
-
+select kc.课程号,kc.课程名,COUNT(cj.学号)
+from kc inner join cj on kc.课程号=cj.课程号
+group by kc.课程号,kc.课程名
+having COUNT(cj.学号)>all(
+	select COUNT(cj1.学号)
+	from kc as kc1 inner join cj as cj1 on kc1.课程号=cj1.课程号
+	where kc1.课程名='英语'
+)
 --23.	查询成绩高于选修英语的某个学生的成绩的学生的学号，姓名，课程号，课程名，成绩
 
 --24.	查询选修了程明和方可以同学所选修的全部课程的学生的学号和姓名
