@@ -277,7 +277,7 @@ where exists(
 		where cj.课程号=kc.课程号 and cj.学号=xs.学号
 	)
 )
---29.	查询选课门数高于网络工程专业每个学生的选课门数的其他专业的学生的学号，姓名和选课人数
+--29.	查询选课门数高于网络工程专业每个学生的选课门数的其他专业的学生的学号，姓名和选课人数（门数？）
 select xs.学号,xs.姓名,COUNT(cj.课程号)
 from xs left join cj on xs.学号=cj.学号
 where xs.专业!='网络工程'
@@ -298,27 +298,81 @@ having COUNT(xs.学号)<=all(
 	group by xs1.专业
 )
 --二、	对books数据库完成以下操作
-
+use books
 --31.	查询各种类别的图书的类别和数量（包含目前没有图书的类别）
-
+select BookType.TypeID,BookType.TypeName,COUNT(BookInfo.BookNo)
+from BookType left join BookInfo on BookType.TypeID=BookInfo.TypeID
+group by BookType.TypeID,BookType.TypeName
 --32.	查询借阅了‘数据库基础’的读者的卡编号和姓名
-
+select BorrowInfo.CardNo,CardInfo.Reader
+from CardInfo inner join BorrowInfo on CardInfo.CardNo=BorrowInfo.CardNo inner join BookInfo on BorrowInfo.BookNo=bookinfo.BookNo
+where bookinfo.BookName='数据库基础'
 --33.	查询各个出版社的图书价格超过这个出版社图书的平均价格的图书的编号和名称。
-
+select BookInfo.Publisher,BookInfo.BookNo,BookInfo.BookName
+from BookInfo
+where bookinfo.Price>(
+	select AVG(BookInfo1.Price)
+	from BookInfo as BookInfo1
+	where BookInfo.Publisher=BookInfo1.Publisher
+)
 --34.	查询没有借过图书的读者的编号和姓名
-
+select CardInfo.CardNo,CardInfo.Reader
+from CardInfo left join BorrowInfo on CardInfo.CardNo=BorrowInfo.CardNo
+where BorrowInfo.CardNo is null
 --35.	查询借阅次数超过2次的读者的编号和姓名
-
---36.	查询借阅卡的类型为老师和研究生的读者人数
-
+select CardInfo.CardNo,CardInfo.Reader
+from CardInfo inner join BorrowInfo on CardInfo.CardNo=BorrowInfo.CardNo
+group by CardInfo.CardNo,CardInfo.Reader
+having COUNT(*)>2
+--36.	查询借阅卡的类型为老师（教师？）和研究生的读者人数
+select CardInfo.CTypeID,COUNT(*)
+from CardInfo
+where Cardinfo.CTypeID in(select CardType.CTypeID from CardType where CardType.TypeName in ('教师','研究生'))
+group by CardInfo.CTypeID
 --37.	查询没有被借过的图书的编号和名称
-
+select BookInfo.BookNo,BookInfo.BookName
+from BookInfo left join BorrowInfo on BookInfo.BookNo=BorrowInfo.BookNo
+where BorrowInfo.BookNo is null
 --38.	查询没有借阅过英语类型的图书的教师的编号和姓名
-
---39.	查询借阅了‘计算机应用’类别的‘数据库基础’课程的读者的编号，读者姓名以及该读者的借阅卡的类型。
-
+select Cardinfo.CardNo,CardInfo.Reader
+from CardInfo
+where CardInfo.CTypeID in (select CardType.CTypeID from CardType where CardType.TypeName='教师')
+and CardInfo.CardNo not in (select BorrowInfo.CardNo from BorrowInfo where BorrowInfo.BookNo=(select BookInfo.BookNo from bookinfo where BookInfo.TypeID in (select BookType.TypeID from BookType where BookType.TypeName='英语')))
+/*禁止套娃！！！~~~*/
+--39.	查询借阅了‘计算机应用’类别的‘数据库基础’课程（图书？）的读者的编号，读者姓名以及该读者的借阅卡的类型。
+/*。。。您确定这需求没问题？*/
+select CardInfo.CardNo,CardInfo.Reader,CardType.TypeName
+from CardInfo,CardType
+where CardInfo.CTypeID=CardType.CTypeID
+and CardInfo.CardNo in
+(
+	select BorrowInfo.CardNo
+	from BorrowInfo
+	where BorrowInfo.BookNo =
+	(
+		select BookInfo.BookNo from BookInfo
+		where BookInfo.BookName='数据库基础'
+		and BookInfo.TypeID =
+		(
+			select BookType.TypeID
+			from BookType
+			where BookType.TypeName='计算机应用'
+		)
+	)
+)
 --40.	查询没有被全部的读者都借阅过的图书的编号和图书名称
-
+select BookInfo.BookNo,bookinfo.BookName
+from BookInfo
+where exists
+(
+	select* from CardInfo
+	where not exists
+	(
+		select* 
+		from BorrowInfo
+		where CardInfo.CardNo=BorrowInfo.CardNo and BorrowInfo.BookNo=BookInfo.BookNo
+	)
+)
 --41.	查询借阅过清华大学出版社的所有图书的读者编号和姓名
 
 --42.	查询借阅过王明所借阅过的全部图书的读者编号和姓名
@@ -355,3 +409,8 @@ having COUNT(xs.学号)<=all(
 --9.	查询在北京的各个商场都有销售的商品的编号和商品名称
 
 --10.	查询价格高于北京的所有商场所销售的产品的价格的商品编号和商品名称。
+
+/*
+	读码千万行，下键如有神！
+	（完）
+*/
