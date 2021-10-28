@@ -126,7 +126,7 @@ having COUNT(cj.课程号) in(
 	select top 1 COUNT(cj.课程号)
 	from cj
 	group by cj.学号
-	order by COUNT(cj.课程号) desc
+	order by COUNT(cj.课程号) desc--用ALL
 )--一句话能搞定吗？
 --24. 查询选修了A001或者A002或者J001或者J002课程的学生的学号和课程号
 select cj.学号,cj.课程号
@@ -265,7 +265,7 @@ group by j.jno,j.jname
 use Northwind
 go
 --1.查询每个订单购买产品的数量和总金额，显示订单号，数量，总金额
-select [Order Details].OrderID,COUNT([Order Details].ProductID),SUM([Order Details].UnitPrice*[Order Details].Quantity*[Order Details].Discount)
+select [Order Details].OrderID,COUNT([Order Details].ProductID),SUM([Order Details].UnitPrice*[Order Details].Quantity*(1-[Order Details].Discount))
 from [Order Details]
 group by [Order Details].OrderID--这行么
 --2. 查询每个员工在7月份处理订单的数量
@@ -278,7 +278,7 @@ select Orders.CustomerID,COUNT(Orders.OrderID)as'订单总数'
 from Orders
 group by Orders.CustomerID
 --4. 查询每个顾客的订单总数和订单总金额
-select Customers.CustomerID,COUNT(Orders.OrderID)as'订单总数',SUM([Order Details].UnitPrice*[Order Details].Quantity*[Order Details].Discount)
+select Customers.CustomerID,COUNT(Orders.OrderID)as'订单总数',SUM([Order Details].UnitPrice*[Order Details].Quantity*(1-[Order Details].Discount))
 from Customers left outer join Orders on Customers.CustomerID=Orders.CustomerID full outer join [Order Details] on Orders.OrderID=[Order Details].OrderID
 group by Customers.CustomerID
 --5. 查询每种产品的卖出总数和总金额
