@@ -1,6 +1,8 @@
-/*	实验三要求	*/
-/*	@author Steve	*/
-/*	@date 2021.10.17	*/
+/*
+	数据库系统实验三
+	@author Steve
+	@date 2021-10-26
+*/
 
 --一．	对xsgl数据库完成以下操作
 use xsgl
@@ -210,21 +212,91 @@ having COUNT(cj.学号)>all(
 	where kc1.课程名='英语'
 )
 --23.	查询成绩高于选修英语的某个学生的成绩的学生的学号，姓名，课程号，课程名，成绩
-
+select xs.学号,xs.姓名,kc.课程号,kc.课程名,cj.成绩
+from xs inner join cj on xs.学号=cj.学号 inner join kc on kc.课程号=cj.课程号
+where cj.成绩>any(
+	select cj1.成绩
+	from cj as cj1
+	where cj1.课程号=(
+		select kc1.课程号
+		from kc as kc1
+		where kc1.课程名='英语'
+	)
+)
 --24.	查询选修了程明和方可以同学所选修的全部课程的学生的学号和姓名
-
+select xs.学号,xs.姓名
+from xs
+where not exists(/*不存在*/
+	select *
+	from cj as cj1 inner join xs as xs1 on cj1.学号=xs1.学号/*无论是存在还是不存在都需要用select一个个检查*/
+	where xs1.姓名 in ('程明','方可以')
+	and not exists(/*没有*/
+		select * from cj
+		where xs.学号=cj.学号 and cj.课程号=cj1.课程号/*选修*/
+	)
+)
 --25.	查询选课学生包含了选修英语的全部学生的课程的课程号和课程名
-
+select kc.课程号,kc.课程名
+from kc
+where not exists(
+	select * from cj as cj1 inner join xs as xs1 on cj1.学号=xs1.学号 inner join kc as kc1 on cj1.课程号=kc1.课程号
+	where kc1.课程名='英语'
+	and not exists(
+		select * 
+		from cj
+		where kc.课程号=cj.课程号 and cj.学号=xs1.学号
+	)
+)
 --26.	查询每门课程成绩倒数两名的同学的学号，姓名和课程号，课程名，成绩
-
+select xs.学号,xs.姓名,kc.课程号,kc.课程名,cj.成绩
+from xs inner join cj on xs.学号=cj.学号 inner join kc on kc.课程号=cj.课程号
+where cj.成绩 in (
+	select distinct top 2 cj1.成绩
+	from cj as cj1
+	where cj1.课程号=cj.课程号
+	order by cj1.成绩
+)
 --27.	查询每门课程里成绩排名在前10%的同学的学号，姓名和课程号，课程名，成绩
-
+select xs.学号,xs.姓名,kc.课程号,kc.课程名,cj.成绩
+from kc left join cj on kc.课程号=cj.课程号 left join xs on xs.学号=cj.学号
+where cj.成绩 in
+(
+	select distinct top 10 percent cj1.成绩
+	from cj as cj1
+	where cj1.课程号=kc.课程号
+)
 --28.	查询没有选修全部课程的学生的学号和姓名
-
+select xs.学号,xs.姓名
+from xs
+where exists(
+	select * 
+	from kc
+	where not exists(
+		select*
+		from cj
+		where cj.课程号=kc.课程号 and cj.学号=xs.学号
+	)
+)
 --29.	查询选课门数高于网络工程专业每个学生的选课门数的其他专业的学生的学号，姓名和选课人数
-
+select xs.学号,xs.姓名,COUNT(cj.课程号)
+from xs left join cj on xs.学号=cj.学号
+where xs.专业!='网络工程'
+group by xs.学号,xs.姓名
+having COUNT(cj.课程号)>all(
+	select COUNT(cj1.课程号)
+	from xs as xs1 inner join cj as cj1 on xs1.学号=cj1.学号
+	where xs1.专业='网络工程'
+	group by xs1.学号,xs1.姓名
+)
 --30.	查询学生人数最少的专业名和专业人数
-
+select xs.专业,COUNT(xs.学号)
+from xs
+group by xs.专业
+having COUNT(xs.学号)<=all(
+	select COUNT(xs1.学号)
+	from xs as xs1
+	group by xs1.专业
+)
 --二、	对books数据库完成以下操作
 
 --31.	查询各种类别的图书的类别和数量（包含目前没有图书的类别）
