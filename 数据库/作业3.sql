@@ -1,7 +1,7 @@
-/*
-	数据库系统实验三
-	@author Steve
-	@date 2021-10-26
+/**
+*数据库系统实验三
+*@author Steve
+*@version 1.0.0
 */
 
 --一．	对xsgl数据库完成以下操作
@@ -374,41 +374,206 @@ where exists
 	)
 )
 --41.	查询借阅过清华大学出版社的所有图书的读者编号和姓名
-
+select CardInfo.CardNo,CardInfo.Reader/*王文玉真是一个优秀的产品经理。。。*/
+from CardInfo
+where not exists(
+	select* 
+	from BookInfo
+	where BookInfo.Publisher='清华大学出版社'
+	and not exists(
+		select*
+		from BorrowInfo
+		where CardInfo.CardNo=BorrowInfo.CardNo and BorrowInfo.BookNo=BookInfo.BookNo
+	)
+)
+/*下面这段代码功能同上，再次说明有时候某些where条件限制等价于from派生表*/
+select CardInfo.CardNo,CardInfo.Reader
+from CardInfo
+where not exists(
+	select* 
+	from (select* from BookInfo where BookInfo.Publisher='清华大学出版社')as sublist
+	where not exists(
+		select* 
+		from BorrowInfo
+		where CardInfo.CardNo=BorrowInfo.CardNo and BorrowInfo.BookNo=sublist.BookNo
+	)
+)
 --42.	查询借阅过王明所借阅过的全部图书的读者编号和姓名
-
+select CardInfo.CardNo,CardInfo.Reader
+from CardInfo
+where not exists(
+	select*
+	from (
+		select BorrowInfo1.BookNo
+		from BorrowInfo as BorrowInfo1
+		where BorrowInfo1.CardNo=(
+			select CardInfo1.CardNo
+			from CardInfo as CardInfo1
+			where CardInfo1.Reader='王明'
+		)
+	) 
+	as sublist
+	where not exists(
+		select* 
+		from BorrowInfo
+		where CardInfo.CardNo=BorrowInfo.CardNo and BorrowInfo.BookNo=sublist.BookNo
+	)
+)
 --43.	查询每种类型的借阅者借阅过的图书的次数
-
+select CardType.TypeName,COUNT(BorrowInfo.BookNo)
+from CardType inner join CardInfo on CardType.CTypeID=CardInfo.CTypeID left join BorrowInfo on CardInfo.CardNo=BorrowInfo.CardNo
+group by CardType.TypeName
 --44.	查询价格高于清华大学出版社的所有图书价格的图书的编号，图书名称和价格，出版社
-
+select BookInfo.BookNo,BookInfo.BookName,BookInfo.Price,BookInfo.Publisher
+from BookInfo
+where BookInfo.Price>all(
+	select b2.Price
+	from BookInfo as b2
+	where b2.Publisher='清华大学出版社'
+)
 --45.	查询没有借阅过王明所借过的所有图书的借阅者的编号姓名
-
+select CardInfo.CardNo,CardInfo.Reader
+from CardInfo
+where exists(
+	select *
+	from 
+	(
+		select B2.BookNo
+		from BorrowInfo as B2
+		where B2.CardNo=
+		(
+			select C2.CardNo
+			from CardInfo as C2
+			where C2.Reader='王明'
+		)
+	)
+	as sublist
+	where not exists(
+		select *
+		from BorrowInfo
+		where CardInfo.CardNo=BorrowInfo.CardNo and BorrowInfo.BookNo=sublist.BookNo
+	)
+)
 --三、对商场数据库完成以下操作
 --Market (mno, mname, city)
 --Item (ino, iname, type, color)
 --Sales (mno, ino, price)
 --其中，market表示商场，它的属性依次为商场号、商场名和所在城市；item表示商品，它的属性依次为商品号、商品名、商品类别和颜色；sales表示销售，它的属性依次为商场号、商品号和售价。
-
+use 商场
 --用SQL语句实现下面的查询要求：
 --1.	列出北京各个商场都销售，且售价均超过10000 元的商品的商品号和商品名
-
+select item.ino,item.iname
+from item
+where not exists
+(
+	select *
+	from market
+	where market.city='北京'
+	and not exists(
+		select*
+		from sales
+		where sales.ino=item.ino and sales.mno=market.mno and sales.price>10000
+	)
+)
 --2.	列出在不同商场中最高售价和最低售价只差超过100 元的商品的商品号、最高售价和最低售价
-
+select sales.ino,MAX(sales.price),MIN(sales.price)
+from sales
+group by sales.ino
+having MAX(sales.price)-MIN(sales.price)>100
 --3.	列出售价超过该商品的平均售价的各个商品的商品号和售价
-
+select sales.ino,sales.price
+from sales
+where sales.price>(
+	select AVG(sales1.price)
+	from sales as sales1
+	where sales.ino=sales1.ino
+)
 --4.	查询每个每个城市各个商场售价最高的商品的商场名，城市，商品号和商品名
-
+select market.city,market.mno,item.ino,item.iname
+from market,sales,item
+where market.mno=sales.mno and sales.ino=item.ino
+and sales.price=(
+	select MAX(sales1.price)
+	from sales as sales1
+	where sales.mno=sales1.mno
+)
 --5.	查询销售商品数量最多的商场的商场号，商场名和城市
-
+select market.mno,market.mname,market.city
+from market,sales
+where market.mno=sales.mno
+group by market.mno,market.mname,market.city
+having COUNT(sales.ino)>=all(
+	select COUNT(sales1.ino)
+	from sales as sales1
+	group by sales1.mno
+)
 --6.	查询销售了冰箱和洗衣机的商场号，商场名和城市
-
+select market.mno,market.mname,market.city
+from market
+where not exists(
+	select * 
+	from item
+	where item.iname in('冰箱','洗衣机')
+	and not exists(
+		select * 
+		from sales
+		where item.ino=sales.ino and sales.mno=market.mno
+	)
+)
 --7.	查询销售过海尔品牌的所有商品的商场编号和商场名称
-
+select market.mno,market.mname
+from market
+where not exists(
+	select *
+	from(
+		select *
+		from item as i1
+		where i1.type='海尔'
+	)as sb
+	where not exists(
+		select *
+		from sales
+		where sb.ino=sales.ino and sales.mno=market.mno
+	)
+)
 --8.	查询销售了所有商品的商场编号和商场名称
-
+select market.mno,market.mname
+from market
+where not exists(
+	select*
+	from item
+	where not exists(
+		select*
+		from sales
+		where sales.ino=item.ino and sales.mno=market.mno
+	)
+)
 --9.	查询在北京的各个商场都有销售的商品的编号和商品名称
-
+select item.ino,item.iname
+from item 
+where not exists
+(
+	select* 
+	from market
+	where market.city='北京'
+	and not exists(
+		select *
+		from sales
+		where item.ino=sales.ino and sales.mno=market.mno
+	)
+)
 --10.	查询价格高于北京的所有商场所销售的产品的价格的商品编号和商品名称。
+select item.ino,item.iname
+from item inner join sales on item.ino=sales.ino
+where sales.price>all(
+	select sales1.price
+	from sales as sales1 
+	where sales1.mno in(
+		select market1.mno
+		from market as market1
+		where market1.city='北京'
+	)
+)
 
 /*
 	读码千万行，下键如有神！
