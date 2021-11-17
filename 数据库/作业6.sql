@@ -223,11 +223,116 @@ end
 go
 --15.	如果一门课的学分发生了修改， 则所有选修该课程并且及格的学生的总学分要做相应的修改，
 --并输出学号，姓名，原总学分，新总学分。
-
+create trigger T10 on kc
+after update
+as
+begin
+	if(UPDATE(学分))
+	begin
+		declare @yxf smallint
+		declare @xxf smallint
+		declare @kch char(10)
+		select @xxf=inserted.学分
+		from inserted
+		select @yxf=deleted.学分
+		from deleted
+		select @kch=inserted.课程号
+		from inserted
+		declare @delta smallint
+		set @delta=@xxf-@yxf
+		update xs
+		set xs.总学分=xs.总学分+@delta
+		where xs.学号 in(
+			select cj.学号
+			from cj
+			where cj.成绩>=60 and cj.课程号=@kch
+		)
+	end
+end
+go
 --16.	针对northwind数据库实现触发器：每个员工每天处理订单的数量不能超过100，
 --如果超出100个则拒绝处理，并提示“处理订单数量超出限额”
+use Northwind
+go
+create trigger T11 on Orders
+after insert
+as
+begin
+	declare @tot int
+	declare @emid int
+	declare @day varchar(20)
+	select @emid=EmployeeID from inserted
+	select @day=CONVERT(varchar(100), OrderDate, 2) from inserted
+	select @tot=COUNT(*) from Orders
+	where CONVERT(varchar(100), Orders.OrderDate, 2)=@day and Orders.EmployeeID=@emid
+	if(@tot>100)
+	begin
+		print'处理订单数量超出限额'
+		rollback transaction
+	end
+end
 --17.	针对northwind数据库实现触发器：给orders表添加zje（订单总金额）属性列，
 --要求保留两位小数，设置触发器实现当产生了新的订单明细之后将总金额更新到到订单表里。
+alter table Orders
+add zje numeric(18,2)
+go
+
+create trigger T12 on [Order Details]
+after insert
+as
+begin
+	declare @OrderID int
+	declare @zje numeric(18,2)
+	select @OrderID=OrderID from inserted
+	select @zje = sum(UnitPrice*Quantity*(1-Discount)) from inserted group by OrderID,ProductID
+	update Orders
+	set zje=zje+@zje
+	where Orders.OrderID=@OrderID
+end
+go
 --18.	在课程表里添加一列：选课人数，设置触发器每门课如果有人选修了，
 --那么课程表里的选课人数相应修改，考虑批量插入选课记录的情况。
+use xsgl
+go
+alter table kc
+add 选课人数 int
+go
+
+create trigger T13 on cj
+after insert
+as
+begin
+	update kc
+	set 选课人数=(
+		select COUNT(*)
+		from cj
+		where cj.课程号=kc.课程号
+		group by cj.课程号
+	)
+	where kc.课程号 in
+	(select distinct cj.课程号 from cj)
+end
+go
 --19.	设置触发器实现如果学生表发生了插入、更新或者删除操作，请输出插入、更新或者删除的行数。
+create trigger T14 on xs
+after insert,update,delete
+as
+begin
+	declare @cnt1 int
+	declare @cnt2 int
+	set @cnt1= (select COUNT(*) from inserted)
+	set @cnt2= (select COUNT(*) from deleted)
+	if(@cnt1<>0 and @cnt2<>0)
+		print '更新'+str(@cnt1)+'行'
+	else if (@cnt1<>0 and @cnt2=0)
+		print '添加'+str(@cnt1)+'行'
+	else if(@cnt1=0 and @cnt2<>0)
+		print '删除'+str(@cnt2)+'行'
+end
+go
+/* 
+  道路千万条，
+  安全第一条，
+  行车不规范，
+  亲人两行泪！
+*/
