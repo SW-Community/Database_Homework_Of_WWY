@@ -1,5 +1,6 @@
 /**
- * @description *日的 ANU大作业
+ * *日的 ANU大作业
+ * @description 可直接运行，一次性得到所有结果，不需要单独选中解释
  * @author Steve
  * @version 1.0.0 2021-11-19
  */
@@ -167,3 +168,38 @@ begin
 	delete from QuestionSheets
 	where QuestionSheets.CreateDate=@when
 end
+go
+
+create login system_admin with password='1234'
+go
+create user system_admin from login system_admin
+go
+grant all on Admins to system_admin
+grant all on AnswerDetails to system_admin
+grant all on Answers to system_admin
+grant all on Questions to system_admin
+grant all on QuestionSheets to system_admin
+grant all on UserGroup to system_admin
+grant all on Users to system_admin
+
+create login survey_creator with password='1234'
+go
+
+create user survey_creator for login survey_creator
+go
+
+grant select on UserGroup to survey_creator
+grant insert on Questions to survey_creator
+grant insert,select on QuestionSheets to survey_creator
+go
+
+create login data_analyst with password='1234'
+go
+
+create user data_analyst for login data_analyst
+go
+
+grant select on Answers to data_analyst
+grant select on AnswerDetails to data_analyst
+grant select on	Questions to data_analyst
+go
