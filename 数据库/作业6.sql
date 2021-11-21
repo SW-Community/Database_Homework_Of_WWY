@@ -223,6 +223,17 @@ end
 go
 --15.	如果一门课的学分发生了修改， 则所有选修该课程并且及格的学生的总学分要做相应的修改，
 --并输出学号，姓名，原总学分，新总学分。
+create trigger T520 on xs
+after update
+as
+begin
+	if(update(总学分))
+	begin
+		select deleted.学号,deleted.姓名,deleted.总学分,inserted.总学分
+		from inserted inner join deleted on inserted.学号=deleted.学号
+	end
+end
+
 create trigger T10 on kc
 after update
 as
