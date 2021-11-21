@@ -1,46 +1,46 @@
 /**
- * Êı¾İ¿âÊµÑéÁù
+ * æ•°æ®åº“å®éªŒå…­
  * @author Steve
  * @version 1.0.0 2021-11-16
  */
 
---¶ÔxsglÊı¾İ¿âÍê³ÉÒÔÏÂ²Ù×÷£º
+--å¯¹xsglæ•°æ®åº“å®Œæˆä»¥ä¸‹æ“ä½œï¼š
 use xsgl
---1.	Îªxs±íµÄÑ§·ÖÁĞÉèÖÃÄ¬ÈÏÖµÎª18
+--1.	ä¸ºxsè¡¨çš„å­¦åˆ†åˆ—è®¾ç½®é»˜è®¤å€¼ä¸º18
 alter table xs
-add constraint C1 default 18 for ×ÜÑ§·Ö
---2.	Îªcj±íÉèÖÃ±êÊ¶ÁĞ£¨ÁĞÃû×Ô¼ºÆğ£©£¬ÆğÊ¼ĞĞÎª2001£¬²½³¤Îª1
+add constraint C1 default 18 for æ€»å­¦åˆ†
+--2.	ä¸ºcjè¡¨è®¾ç½®æ ‡è¯†åˆ—ï¼ˆåˆ—åè‡ªå·±èµ·ï¼‰ï¼Œèµ·å§‹è¡Œä¸º2001ï¼Œæ­¥é•¿ä¸º1
 alter table cj
-add ±êÊ¶ÁĞ int identity(2001,1)
+add æ ‡è¯†åˆ— int identity(2001,1)
 select* from cj
---3.	Îªxs±íµÄĞÔ±ğÁĞÔö¼ÓÔ¼Êø£¬ÈÃĞÔ±ğÈ¡ÖµÎªÄĞ»òÕßÅ®
+--3.	ä¸ºxsè¡¨çš„æ€§åˆ«åˆ—å¢åŠ çº¦æŸï¼Œè®©æ€§åˆ«å–å€¼ä¸ºç”·æˆ–è€…å¥³
 alter table xs
-add constraint C2 check (ĞÔ±ğ in('ÄĞ','Å®'))
---4.	¶¨ÒåcheckÔ¼Êø£¬ÒªÇóÑ§ÉúÑ§ºÅsno±ØĞëÎª9Î»Êı×Ö×Ö·û£¬ÇÒ²»ÄÜÒÔ0¿ªÍ·£¬µÚ¶şÈıÎ»½ÔÎª0
+add constraint C2 check (æ€§åˆ« in('ç”·','å¥³'))
+--4.	å®šä¹‰checkçº¦æŸï¼Œè¦æ±‚å­¦ç”Ÿå­¦å·snoå¿…é¡»ä¸º9ä½æ•°å­—å­—ç¬¦ï¼Œä¸”ä¸èƒ½ä»¥0å¼€å¤´ï¼Œç¬¬äºŒä¸‰ä½çš†ä¸º0
 alter table xs
-with nocheck /* ±íÀïÃæÑ§ºÅÈ«ÊÇ10Î»µÄ£¬ËùÒÔ±»ÆÈwith nocheckÁË */
-add constraint C3 check (Ñ§ºÅ like '[1-9]00[0-9][0-9][0-9][0-9][0-9][0-9]')
+with nocheck /* è¡¨é‡Œé¢å­¦å·å…¨æ˜¯10ä½çš„ï¼Œæ‰€ä»¥è¢«è¿«with nocheckäº† */
+add constraint C3 check (å­¦å· like '[1-9]00[0-9][0-9][0-9][0-9][0-9][0-9]')
 
-/* ÑéÖ¤Ò»ÏÂ */
-insert into xs(Ñ§ºÅ,ĞÕÃû)
-values('100333333','ÁõÃ÷ìÇ')
+/* éªŒè¯ä¸€ä¸‹ */
+insert into xs(å­¦å·,å§“å)
+values('100333333','åˆ˜æ˜çƒ¨')
 
-insert into xs(Ñ§ºÅ,ĞÕÃû,×ÜÑ§·Ö)
-values('03','£¿£¿',20)
---5.	ÒªÇóÑ§Éú±íµÄÑ§ÉúĞÕÃû³¤¶ÈÔÚ2-8Ö®¼ä
+insert into xs(å­¦å·,å§“å,æ€»å­¦åˆ†)
+values('03','ï¼Ÿï¼Ÿ',20)
+--5.	è¦æ±‚å­¦ç”Ÿè¡¨çš„å­¦ç”Ÿå§“åé•¿åº¦åœ¨2-8ä¹‹é—´
 alter table xs
-add constraint C4 check(len(ĞÕÃû)between 2 and 8)
---6.	¸øxs±íÌí¼ÓÊôĞÔÁĞ¡°Éí·İÖ¤ºÅÂë¡±£¬²¢ÎªÆäÌí¼ÓÔ¼ÊøÎª18Î»£¨Ê××Ö·û²»ÄÜÎª0µÄÊı×Ö£¬×îºóÒ»Î»¿ÉÒÔÊÇ1-9Êı×Ö»òÕßX£¬ÆäÓàÎ»¾ùÎª0-9µÄÊı×Ö£©
+add constraint C4 check(len(å§“å)between 2 and 8)
+--6.	ç»™xsè¡¨æ·»åŠ å±æ€§åˆ—â€œèº«ä»½è¯å·ç â€ï¼Œå¹¶ä¸ºå…¶æ·»åŠ çº¦æŸä¸º18ä½ï¼ˆé¦–å­—ç¬¦ä¸èƒ½ä¸º0çš„æ•°å­—ï¼Œæœ€åä¸€ä½å¯ä»¥æ˜¯1-9æ•°å­—æˆ–è€…Xï¼Œå…¶ä½™ä½å‡ä¸º0-9çš„æ•°å­—ï¼‰
 alter table xs
-add Éí·İÖ¤ºÅÂë char(18) check(Éí·İÖ¤ºÅÂë like'[^0][1-9][1-9][1-9][1-9][1-9][1-9][1-9][1-9][1-9][1-9][1-9][1-9][1-9][1-9][1-9][1-9][1-9,X,x]')
---7.	¸øcj±íÔö¼Ó¼¶ÁªÉ¾³ıºÍ¾Ü¾øĞŞ¸ÄµÄÑ§ºÅºÍ¿Î³ÌºÅµÄÍâÂëÔ¼Êø¡£
+add èº«ä»½è¯å·ç  char(18) check(èº«ä»½è¯å·ç  like'[^0][1-9][1-9][1-9][1-9][1-9][1-9][1-9][1-9][1-9][1-9][1-9][1-9][1-9][1-9][1-9][1-9][1-9,X,x]')
+--7.	ç»™cjè¡¨å¢åŠ çº§è”åˆ é™¤å’Œæ‹’ç»ä¿®æ”¹çš„å­¦å·å’Œè¯¾ç¨‹å·çš„å¤–ç çº¦æŸã€‚
 alter table cj
-add constraint C5 foreign key(Ñ§ºÅ)references xs(Ñ§ºÅ)
+add constraint C5 foreign key(å­¦å·)references xs(å­¦å·)
 on delete cascade
 alter table cj
-add constraint C6 foreign key(¿Î³ÌºÅ)references kc(¿Î³ÌºÅ)
+add constraint C6 foreign key(è¯¾ç¨‹å·)references kc(è¯¾ç¨‹å·)
 on delete cascade
---8.	´´½¨½èÊé±í£ºlendt(bno£¨Ë÷ÊéºÅ£©,sno£¨Ñ§ºÅ£©,ldate£¨½èÔÄÈÕÆÚ£©,rdate£¨Ó¦»¹ÈÕÆÚ£©£¬relend£¨ÊÇ·ñĞø½è£©
+--8.	åˆ›å»ºå€Ÿä¹¦è¡¨ï¼šlendt(bnoï¼ˆç´¢ä¹¦å·ï¼‰,snoï¼ˆå­¦å·ï¼‰,ldateï¼ˆå€Ÿé˜…æ—¥æœŸï¼‰,rdateï¼ˆåº”è¿˜æ—¥æœŸï¼‰ï¼Œrelendï¼ˆæ˜¯å¦ç»­å€Ÿï¼‰
 create table lendt(
 	bno int not null,
 	sno char(10) not null,
@@ -48,84 +48,84 @@ create table lendt(
 	rdate datetime,
 	relend bit
 )
---ÇëÎª¸Ã±íÔö¼ÓËÄ¸öÔ¼ÊøÌõ¼ş£º
---£¨1£©Ôö¼ÓÖ÷ÂëÔ¼Êø£¨bno,sno£©
+--è¯·ä¸ºè¯¥è¡¨å¢åŠ å››ä¸ªçº¦æŸæ¡ä»¶ï¼š
+--ï¼ˆ1ï¼‰å¢åŠ ä¸»ç çº¦æŸï¼ˆbno,snoï¼‰
 alter table lendt
 add constraint C7 primary key(bno,sno)
---£¨2£©Îª½èÔÄÈÕÆÚÔö¼ÓÄ¬ÈÏÖµÔ¼Êø£¬Ä¬ÈÏÖµÎªµ±Ç°ÈÕÆÚ
+--ï¼ˆ2ï¼‰ä¸ºå€Ÿé˜…æ—¥æœŸå¢åŠ é»˜è®¤å€¼çº¦æŸï¼Œé»˜è®¤å€¼ä¸ºå½“å‰æ—¥æœŸ
 alter table lendt
 add constraint C8 default getdate() for ldate
---£¨3£©ÎªÓ¦»¹ÈÕÆÚÔö¼ÓÄ¬ÈÏÖµÔ¼Êø£¬Ä¬ÈÏÖµÎªµ±Ç°ÈÕÆÚ+30Ìì
+--ï¼ˆ3ï¼‰ä¸ºåº”è¿˜æ—¥æœŸå¢åŠ é»˜è®¤å€¼çº¦æŸï¼Œé»˜è®¤å€¼ä¸ºå½“å‰æ—¥æœŸ+30å¤©
 alter table lendt
 add constraint C9 default getdate()+convert(datetime,30) for rdate
---£¨4£©ÎªÊÇ·ñĞø½èÔö¼ÓÄ¬ÈÏÖµÔ¼Êø£¬Ä¬ÈÏÖµÎª·ñ
+--ï¼ˆ4ï¼‰ä¸ºæ˜¯å¦ç»­å€Ÿå¢åŠ é»˜è®¤å€¼çº¦æŸï¼Œé»˜è®¤å€¼ä¸ºå¦
 alter table lendt
 add constraint C10 default 0 for relend
 go
---9.	²ÎÕÕÊéÉÏ167Ò³µÄ5.6½Ú¶ÏÑÔÍê³ÉÏÂÁĞ²Ù×÷£º
+--9.	å‚ç…§ä¹¦ä¸Š167é¡µçš„5.6èŠ‚æ–­è¨€å®Œæˆä¸‹åˆ—æ“ä½œï¼š
 /* 
-   ÓÉÓÚMSSQLSERVER²»Ö§³Ö¶ÏÑÔ£¬Òò´ËºÜ¿ÉÏ§ÕâĞ©²Ù×÷Ò»¸öÒ²×ö²»ÁË
-   µ«ÊÇ¿ÉÒÔÓÃ´¥·¢Æ÷Ìæ´úÊµÏÖÏàÍ¬Ğ§¹û
+   ç”±äºMSSQLSERVERä¸æ”¯æŒæ–­è¨€ï¼Œå› æ­¤å¾ˆå¯æƒœè¿™äº›æ“ä½œä¸€ä¸ªä¹Ÿåšä¸äº†
+   ä½†æ˜¯å¯ä»¥ç”¨è§¦å‘å™¨æ›¿ä»£å®ç°ç›¸åŒæ•ˆæœ
 */
---£¨1£©	ÏŞ¶¨Ã¿¸ö×¨ÒµµÄÑ¡¿ÎÃÅÊı²»ÄÜ³¬¹ı10ÃÅ
+--ï¼ˆ1ï¼‰	é™å®šæ¯ä¸ªä¸“ä¸šçš„é€‰è¯¾é—¨æ•°ä¸èƒ½è¶…è¿‡10é—¨
 create trigger T1 on cj
 after insert
 as
 if 10<(
-	select COUNT(cj.¿Î³ÌºÅ)
-	from xs inner join cj on xs.Ñ§ºÅ=cj.Ñ§ºÅ
-	group by xs.×¨Òµ
+	select COUNT(cj.è¯¾ç¨‹å·)
+	from xs inner join cj on xs.å­¦å·=cj.å­¦å·
+	where xs.å­¦å·=inserted.å­¦å·
 )
 	rollback transaction
 go
---£¨2£©	ÏŞ¶¨Ã¿¸öÑ§ÉúÖÁÉÙÒªÑ¡ĞŞ6ÃÅ¿Î³Ì
+--ï¼ˆ2ï¼‰	é™å®šæ¯ä¸ªå­¦ç”Ÿè‡³å°‘è¦é€‰ä¿®6é—¨è¯¾ç¨‹
 create trigger T2 on cj
 after delete
 as
 if 6>(
-	select COUNT(cj.¿Î³ÌºÅ)
-	from xs left join cj on xs.Ñ§ºÅ=cj.Ñ§ºÅ
-	group by xs.Ñ§ºÅ
+	select COUNT(cj.è¯¾ç¨‹å·)
+	from xs left join cj on xs.å­¦å·=cj.å­¦å·
+	where xs.å­¦å·=deleted.å­¦å·
 )
 	rollback transaction
 go
---10.	Éè¼Æ´¥·¢Æ÷ÊµÏÖ£ºÈç¹ûÒ»¸öÑ§ÉúµÄ×¨ÒµÊÇÍøÂç¹¤³Ì×¨Òµ£¬ÄÇÃ´ËûµÄ×ÜÑ§·Ö²»µÃÉÙÓÚ22·Ö£¬
---Ò²¾ÍÊÇÈç¹ûÄã²åÈëÒ»¸öĞÂµÄÍøÂç¹¤³Ì×¨ÒµµÄÑ§Éú»òÕß¸üĞÂÕâ¸ö×¨ÒµµÄÑ§ÉúµÄÑ§·ÖÉÙÓÚ22·ÖµÄ»°£¬
---¾Í½«Æä¸ÄÎª22Ñ§·Ö¡£
+--10.	è®¾è®¡è§¦å‘å™¨å®ç°ï¼šå¦‚æœä¸€ä¸ªå­¦ç”Ÿçš„ä¸“ä¸šæ˜¯ç½‘ç»œå·¥ç¨‹ä¸“ä¸šï¼Œé‚£ä¹ˆä»–çš„æ€»å­¦åˆ†ä¸å¾—å°‘äº22åˆ†ï¼Œ
+--ä¹Ÿå°±æ˜¯å¦‚æœä½ æ’å…¥ä¸€ä¸ªæ–°çš„ç½‘ç»œå·¥ç¨‹ä¸“ä¸šçš„å­¦ç”Ÿæˆ–è€…æ›´æ–°è¿™ä¸ªä¸“ä¸šçš„å­¦ç”Ÿçš„å­¦åˆ†å°‘äº22åˆ†çš„è¯ï¼Œ
+--å°±å°†å…¶æ”¹ä¸º22å­¦åˆ†ã€‚
 create trigger T3 on xs
 after insert,update
 as
 if exists (
 	select* from inserted
-	where inserted.×¨Òµ='ÍøÂç¹¤³Ì' and inserted.×ÜÑ§·Ö<22
+	where inserted.ä¸“ä¸š='ç½‘ç»œå·¥ç¨‹' and inserted.æ€»å­¦åˆ†<22
 )
 begin
 	update xs
-	set xs.×ÜÑ§·Ö=22
-	where xs.Ñ§ºÅ in (
-		select inserted.Ñ§ºÅ
+	set xs.æ€»å­¦åˆ†=22
+	where xs.å­¦å· in (
+		select inserted.å­¦å·
 		from inserted
-		where inserted.×¨Òµ='ÍøÂç¹¤³Ì' and inserted.×ÜÑ§·Ö<22
+		where inserted.ä¸“ä¸š='ç½‘ç»œå·¥ç¨‹' and inserted.æ€»å­¦åˆ†<22
 	)
 end
 go
---11.	½¨Á¢½ÌÊ¦±í£¨½Ì¹¤±àºÅ£¬ĞÕÃû£¬×¨Òµ£¬Ö°³Æ£¬¹¤×Ê£©ºÍ
---¹¤×Ê±ä»¯±í£¨½Ì¹¤±àºÅ£¬Ô­¹¤×Ê£¬ĞÂ¹¤×Ê£©£¬Éè¼Æ´¥·¢Æ÷ÊµÏÖ½ÌÊÚµÄ¹¤×Ê²»µÃµÍÓÚ4000Ôª£¬
---Èç¹ûµÍÓÚ4000ÔªÔò×Ô¶¯¸ÄÎª4000Ôª¡£
---²¢ÇÒËùÓĞÔ±¹¤Èç¹ûÔ±¹¤µÄ¹¤×Ê·¢Éú±ä»¯ÔòÏò¹¤×Ê±ä»¯±í²åÈëÒ»Ìõ¼ÇÂ¼£¬
---°üº¬½Ì¹¤±àºÅ£¬Ô­¹¤×Ê£¬ĞÂ¹¤×Ê¡£
+--11.	å»ºç«‹æ•™å¸ˆè¡¨ï¼ˆæ•™å·¥ç¼–å·ï¼Œå§“åï¼Œä¸“ä¸šï¼ŒèŒç§°ï¼Œå·¥èµ„ï¼‰å’Œ
+--å·¥èµ„å˜åŒ–è¡¨ï¼ˆæ•™å·¥ç¼–å·ï¼ŒåŸå·¥èµ„ï¼Œæ–°å·¥èµ„ï¼‰ï¼Œè®¾è®¡è§¦å‘å™¨å®ç°æ•™æˆçš„å·¥èµ„ä¸å¾—ä½äº4000å…ƒï¼Œ
+--å¦‚æœä½äº4000å…ƒåˆ™è‡ªåŠ¨æ”¹ä¸º4000å…ƒã€‚
+--å¹¶ä¸”æ‰€æœ‰å‘˜å·¥å¦‚æœå‘˜å·¥çš„å·¥èµ„å‘ç”Ÿå˜åŒ–åˆ™å‘å·¥èµ„å˜åŒ–è¡¨æ’å…¥ä¸€æ¡è®°å½•ï¼Œ
+--åŒ…å«æ•™å·¥ç¼–å·ï¼ŒåŸå·¥èµ„ï¼Œæ–°å·¥èµ„ã€‚
 create table js(
-	½Ì¹¤±àºÅ char(10),
-	ĞÕÃû nchar(10),
-	×¨Òµ char(16),
-	Ö°³Æ char(16),
-	¹¤×Ê int
+	æ•™å·¥ç¼–å· char(10),
+	å§“å nchar(10),
+	ä¸“ä¸š char(16),
+	èŒç§° char(16),
+	å·¥èµ„ int
 )
 
 create table gzbh(
-	½Ì¹¤±àºÅ char(10),
-	Ô­¹¤×Ê int,
-	ĞÂ¹¤×Ê int
+	æ•™å·¥ç¼–å· char(10),
+	åŸå·¥èµ„ int,
+	æ–°å·¥èµ„ int
 )
 go
 
@@ -134,14 +134,14 @@ after insert,update
 as
 if exists(
 	select* from inserted
-	where inserted.¹¤×Ê<4000
+	where inserted.å·¥èµ„<4000
 )
 begin
 	update js
-	set js.¹¤×Ê=4000
-	where js.½Ì¹¤±àºÅ in(
-		select inserted.½Ì¹¤±àºÅ from inserted
-		where inserted.¹¤×Ê<4000
+	set js.å·¥èµ„=4000
+	where js.æ•™å·¥ç¼–å· in(
+		select inserted.æ•™å·¥ç¼–å· from inserted
+		where inserted.å·¥èµ„<4000
 	)
 end
 go
@@ -150,50 +150,50 @@ create trigger T5 on js
 after update
 as
 begin
-	insert into gzbh(½Ì¹¤±àºÅ,Ô­¹¤×Ê,ĞÂ¹¤×Ê)
-	select inserted.½Ì¹¤±àºÅ,deleted.¹¤×Ê,inserted.¹¤×Ê
-	from inserted inner join deleted on inserted.½Ì¹¤±àºÅ=deleted.½Ì¹¤±àºÅ
+	insert into gzbh(æ•™å·¥ç¼–å·,åŸå·¥èµ„,æ–°å·¥èµ„)
+	select inserted.æ•™å·¥ç¼–å·,deleted.å·¥èµ„,inserted.å·¥èµ„
+	from inserted inner join deleted on inserted.æ•™å·¥ç¼–å·=deleted.æ•™å·¥ç¼–å·
 end
 go
---12.	Éè¼Æ´¥·¢Æ÷ÊµÏÖÈç¹ûÒ»¸öÑ§Éú×ª×¨ÒµÁË£¬ÄÇÃ´Êä³öÒ»ÌõĞÅÏ¢ÏÔÊ¾¸ÃÑ§Éú¸÷ÃÅ¿Î³ÌµÄÆ½¾ù·Ö£¬
---µ«ÊÇÈç¹û¸ÃÑ§ÉúÊÇ¼ÆËã»úÖĞ°Ä×¨ÒµÔò²»ÔÊĞí×ª×¨Òµ¡£
+--12.	è®¾è®¡è§¦å‘å™¨å®ç°å¦‚æœä¸€ä¸ªå­¦ç”Ÿè½¬ä¸“ä¸šäº†ï¼Œé‚£ä¹ˆè¾“å‡ºä¸€æ¡ä¿¡æ¯æ˜¾ç¤ºè¯¥å­¦ç”Ÿå„é—¨è¯¾ç¨‹çš„å¹³å‡åˆ†ï¼Œ
+--ä½†æ˜¯å¦‚æœè¯¥å­¦ç”Ÿæ˜¯è®¡ç®—æœºä¸­æ¾³ä¸“ä¸šåˆ™ä¸å…è®¸è½¬ä¸“ä¸šã€‚
 create trigger T7 on xs
 after update
 as
 begin
-	if UPDATE(×¨Òµ) 
+	if UPDATE(ä¸“ä¸š) 
 	begin
-		if exists(select * from deleted where deleted.×¨Òµ='¼ÆËã»úÖĞ°Ä')
+		if exists(select * from deleted where deleted.ä¸“ä¸š='è®¡ç®—æœºä¸­æ¾³')
 		begin
-			print 'ÎÒÕæµÄ²»Ïë¾Ü¾øÄã£¬µ«ÎÒÃÇ»¹ÊÇ½ÓÊÜÏÖÊµ°É£¬±Ï¾¹£¬Õâ¾ÍÊÇÉú»î¡£¡£¡£'
+			print 'æˆ‘çœŸçš„ä¸æƒ³æ‹’ç»ä½ ï¼Œä½†æˆ‘ä»¬è¿˜æ˜¯æ¥å—ç°å®å§ï¼Œæ¯•ç«Ÿï¼Œè¿™å°±æ˜¯ç”Ÿæ´»ã€‚ã€‚ã€‚'
 			rollback transaction
 		end
 		else
 		begin
 			declare @pjf numeric(18,0)
-			select @pjf=AVG(cj.³É¼¨)
-			from xs left join cj on xs.Ñ§ºÅ=cj.Ñ§ºÅ
-			where xs.Ñ§ºÅ in 
+			select @pjf=AVG(cj.æˆç»©)
+			from xs left join cj on xs.å­¦å·=cj.å­¦å·
+			where xs.å­¦å· in 
 			(
-				select deleted.Ñ§ºÅ
+				select deleted.å­¦å·
 				from deleted
 			)
-			print 'ÄãµÄÆ½¾ù·ÖÊÇ'+str(@pjf)+'£¬ÕæµÄºÜ°ô£¬¹§Ï²ÄãË³ÀûÍê³É×ª×¨Òµ£¡'
+			print 'ä½ çš„å¹³å‡åˆ†æ˜¯'+str(@pjf)+'ï¼ŒçœŸçš„å¾ˆæ£’ï¼Œæ­å–œä½ é¡ºåˆ©å®Œæˆè½¬ä¸“ä¸šï¼'
 		end
 	end
 end
 go
---13.	Éè¼Æ´¥·¢Æ÷ÊµÏÖÃ¿ÃÅ¿ÎµÄÑ¡¿ÎÈËÊı²»ÄÜ³¬¹ı60ÈË£¬Ö»¿¼ÂÇ²åÈëÒ»ĞĞ
+--13.	è®¾è®¡è§¦å‘å™¨å®ç°æ¯é—¨è¯¾çš„é€‰è¯¾äººæ•°ä¸èƒ½è¶…è¿‡60äººï¼Œåªè€ƒè™‘æ’å…¥ä¸€è¡Œ
 create trigger T8 on cj
 after insert,update
 as
 begin
 	if 60<(
-		select COUNT(cj.Ñ§ºÅ)
+		select COUNT(cj.å­¦å·)
 		from cj
-		group by cj.¿Î³ÌºÅ
-		having cj.¿Î³ÌºÅ in	(
-			select inserted.¿Î³ÌºÅ
+		group by cj.è¯¾ç¨‹å·
+		having cj.è¯¾ç¨‹å· in	(
+			select inserted.è¯¾ç¨‹å·
 			from inserted
 		)
 	)
@@ -202,56 +202,56 @@ begin
 	end
 end
 go
---14.	Éè¼Æ´¥·¢Æ÷ÊµÏÖÈç¹û³É¼¨±»ĞŞ¸ÄÁË20·ÖÒÔÉÏ£¬ÔòÊä³öÌáÊ¾ĞÅÏ¢¡°ĞŞ¸Ä³É¼¨³¬¹ı20·Ö£¬ÇëÉ÷ÖØ¡±£¬
---²¢Êä³ö¸ÃÑ§ÉúµÄÑ¡¿Î¼ÇÂ¼¡£
+--14.	è®¾è®¡è§¦å‘å™¨å®ç°å¦‚æœæˆç»©è¢«ä¿®æ”¹äº†20åˆ†ä»¥ä¸Šï¼Œåˆ™è¾“å‡ºæç¤ºä¿¡æ¯â€œä¿®æ”¹æˆç»©è¶…è¿‡20åˆ†ï¼Œè¯·æ…é‡â€ï¼Œ
+--å¹¶è¾“å‡ºè¯¥å­¦ç”Ÿçš„é€‰è¯¾è®°å½•ã€‚
 create trigger T9 on cj
 after update
 as
 begin
-	if(UPDATE(³É¼¨))
+	if(UPDATE(æˆç»©))
 	begin
 		declare @xgq numeric(18,0)
 		declare @xgh numeric(18,0)
-		select @xgq=deleted.³É¼¨
+		select @xgq=deleted.æˆç»©
 		from deleted
-		select @xgh=inserted.³É¼¨
+		select @xgh=inserted.æˆç»©
 		from inserted
 		if @xgh-@xgq>20 or @xgh-@xgq<-20
-			print'ĞŞ¸Ä³É¼¨³¬¹ı20·Ö£¬ÇëÉ÷ÖØ¡£ÀÌÑ§ÉúÊÇ»ıµÂĞĞÉÆ£¬µ«Èô±»½ÌÎñ´¦·¢ÏÖ£¬Äú¿ÉÄÜĞèÒª³Ğµ£ÔğÈÎ'
+			print'ä¿®æ”¹æˆç»©è¶…è¿‡20åˆ†ï¼Œè¯·æ…é‡ã€‚æå­¦ç”Ÿæ˜¯ç§¯å¾·è¡Œå–„ï¼Œä½†è‹¥è¢«æ•™åŠ¡å¤„å‘ç°ï¼Œæ‚¨å¯èƒ½éœ€è¦æ‰¿æ‹…è´£ä»»'
 	end
 end
 go
---15.	Èç¹ûÒ»ÃÅ¿ÎµÄÑ§·Ö·¢ÉúÁËĞŞ¸Ä£¬ ÔòËùÓĞÑ¡ĞŞ¸Ã¿Î³Ì²¢ÇÒ¼°¸ñµÄÑ§ÉúµÄ×ÜÑ§·ÖÒª×öÏàÓ¦µÄĞŞ¸Ä£¬
---²¢Êä³öÑ§ºÅ£¬ĞÕÃû£¬Ô­×ÜÑ§·Ö£¬ĞÂ×ÜÑ§·Ö¡£
+--15.	å¦‚æœä¸€é—¨è¯¾çš„å­¦åˆ†å‘ç”Ÿäº†ä¿®æ”¹ï¼Œ åˆ™æ‰€æœ‰é€‰ä¿®è¯¥è¯¾ç¨‹å¹¶ä¸”åŠæ ¼çš„å­¦ç”Ÿçš„æ€»å­¦åˆ†è¦åšç›¸åº”çš„ä¿®æ”¹ï¼Œ
+--å¹¶è¾“å‡ºå­¦å·ï¼Œå§“åï¼ŒåŸæ€»å­¦åˆ†ï¼Œæ–°æ€»å­¦åˆ†ã€‚
 create trigger T10 on kc
 after update
 as
 begin
-	if(UPDATE(Ñ§·Ö))
+	if(UPDATE(å­¦åˆ†))
 	begin
 		declare @yxf smallint
 		declare @xxf smallint
 		declare @kch char(10)
-		select @xxf=inserted.Ñ§·Ö
+		select @xxf=inserted.å­¦åˆ†
 		from inserted
-		select @yxf=deleted.Ñ§·Ö
+		select @yxf=deleted.å­¦åˆ†
 		from deleted
-		select @kch=inserted.¿Î³ÌºÅ
+		select @kch=inserted.è¯¾ç¨‹å·
 		from inserted
 		declare @delta smallint
 		set @delta=@xxf-@yxf
 		update xs
-		set xs.×ÜÑ§·Ö=xs.×ÜÑ§·Ö+@delta
-		where xs.Ñ§ºÅ in(
-			select cj.Ñ§ºÅ
+		set xs.æ€»å­¦åˆ†=xs.æ€»å­¦åˆ†+@delta
+		where xs.å­¦å· in(
+			select cj.å­¦å·
 			from cj
-			where cj.³É¼¨>=60 and cj.¿Î³ÌºÅ=@kch
+			where cj.æˆç»©>=60 and cj.è¯¾ç¨‹å·=@kch
 		)
 	end
 end
 go
---16.	Õë¶ÔnorthwindÊı¾İ¿âÊµÏÖ´¥·¢Æ÷£ºÃ¿¸öÔ±¹¤Ã¿Ìì´¦Àí¶©µ¥µÄÊıÁ¿²»ÄÜ³¬¹ı100£¬
---Èç¹û³¬³ö100¸öÔò¾Ü¾ø´¦Àí£¬²¢ÌáÊ¾¡°´¦Àí¶©µ¥ÊıÁ¿³¬³öÏŞ¶î¡±
+--16.	é’ˆå¯¹northwindæ•°æ®åº“å®ç°è§¦å‘å™¨ï¼šæ¯ä¸ªå‘˜å·¥æ¯å¤©å¤„ç†è®¢å•çš„æ•°é‡ä¸èƒ½è¶…è¿‡100ï¼Œ
+--å¦‚æœè¶…å‡º100ä¸ªåˆ™æ‹’ç»å¤„ç†ï¼Œå¹¶æç¤ºâ€œå¤„ç†è®¢å•æ•°é‡è¶…å‡ºé™é¢â€
 use Northwind
 go
 create trigger T11 on Orders
@@ -267,12 +267,12 @@ begin
 	where CONVERT(varchar(100), Orders.OrderDate, 2)=@day and Orders.EmployeeID=@emid
 	if(@tot>100)
 	begin
-		print'´¦Àí¶©µ¥ÊıÁ¿³¬³öÏŞ¶î'
+		print'å¤„ç†è®¢å•æ•°é‡è¶…å‡ºé™é¢'
 		rollback transaction
 	end
 end
---17.	Õë¶ÔnorthwindÊı¾İ¿âÊµÏÖ´¥·¢Æ÷£º¸øorders±íÌí¼Ózje£¨¶©µ¥×Ü½ğ¶î£©ÊôĞÔÁĞ£¬
---ÒªÇó±£ÁôÁ½Î»Ğ¡Êı£¬ÉèÖÃ´¥·¢Æ÷ÊµÏÖµ±²úÉúÁËĞÂµÄ¶©µ¥Ã÷Ï¸Ö®ºó½«×Ü½ğ¶î¸üĞÂµ½µ½¶©µ¥±íÀï¡£
+--17.	é’ˆå¯¹northwindæ•°æ®åº“å®ç°è§¦å‘å™¨ï¼šç»™ordersè¡¨æ·»åŠ zjeï¼ˆè®¢å•æ€»é‡‘é¢ï¼‰å±æ€§åˆ—ï¼Œ
+--è¦æ±‚ä¿ç•™ä¸¤ä½å°æ•°ï¼Œè®¾ç½®è§¦å‘å™¨å®ç°å½“äº§ç”Ÿäº†æ–°çš„è®¢å•æ˜ç»†ä¹‹åå°†æ€»é‡‘é¢æ›´æ–°åˆ°åˆ°è®¢å•è¡¨é‡Œã€‚
 alter table Orders
 add zje numeric(18,2)
 go
@@ -290,12 +290,12 @@ begin
 	where Orders.OrderID=@OrderID
 end
 go
---18.	ÔÚ¿Î³Ì±íÀïÌí¼ÓÒ»ÁĞ£ºÑ¡¿ÎÈËÊı£¬ÉèÖÃ´¥·¢Æ÷Ã¿ÃÅ¿ÎÈç¹ûÓĞÈËÑ¡ĞŞÁË£¬
---ÄÇÃ´¿Î³Ì±íÀïµÄÑ¡¿ÎÈËÊıÏàÓ¦ĞŞ¸Ä£¬¿¼ÂÇÅúÁ¿²åÈëÑ¡¿Î¼ÇÂ¼µÄÇé¿ö¡£
+--18.	åœ¨è¯¾ç¨‹è¡¨é‡Œæ·»åŠ ä¸€åˆ—ï¼šé€‰è¯¾äººæ•°ï¼Œè®¾ç½®è§¦å‘å™¨æ¯é—¨è¯¾å¦‚æœæœ‰äººé€‰ä¿®äº†ï¼Œ
+--é‚£ä¹ˆè¯¾ç¨‹è¡¨é‡Œçš„é€‰è¯¾äººæ•°ç›¸åº”ä¿®æ”¹ï¼Œè€ƒè™‘æ‰¹é‡æ’å…¥é€‰è¯¾è®°å½•çš„æƒ…å†µã€‚
 use xsgl
 go
 alter table kc
-add Ñ¡¿ÎÈËÊı int
+add é€‰è¯¾äººæ•° int
 go
 
 create trigger T13 on cj
@@ -303,17 +303,17 @@ after insert
 as
 begin
 	update kc
-	set Ñ¡¿ÎÈËÊı=(
+	set é€‰è¯¾äººæ•°=(
 		select COUNT(*)
 		from cj
-		where cj.¿Î³ÌºÅ=kc.¿Î³ÌºÅ
-		group by cj.¿Î³ÌºÅ
+		where cj.è¯¾ç¨‹å·=kc.è¯¾ç¨‹å·
+		group by cj.è¯¾ç¨‹å·
 	)
-	where kc.¿Î³ÌºÅ in
-	(select distinct cj.¿Î³ÌºÅ from cj)
+	where kc.è¯¾ç¨‹å· in
+	(select distinct cj.è¯¾ç¨‹å· from cj)
 end
 go
---19.	ÉèÖÃ´¥·¢Æ÷ÊµÏÖÈç¹ûÑ§Éú±í·¢ÉúÁË²åÈë¡¢¸üĞÂ»òÕßÉ¾³ı²Ù×÷£¬ÇëÊä³ö²åÈë¡¢¸üĞÂ»òÕßÉ¾³ıµÄĞĞÊı¡£
+--19.	è®¾ç½®è§¦å‘å™¨å®ç°å¦‚æœå­¦ç”Ÿè¡¨å‘ç”Ÿäº†æ’å…¥ã€æ›´æ–°æˆ–è€…åˆ é™¤æ“ä½œï¼Œè¯·è¾“å‡ºæ’å…¥ã€æ›´æ–°æˆ–è€…åˆ é™¤çš„è¡Œæ•°ã€‚
 create trigger T14 on xs
 after insert,update,delete
 as
@@ -323,16 +323,16 @@ begin
 	set @cnt1= (select COUNT(*) from inserted)
 	set @cnt2= (select COUNT(*) from deleted)
 	if(@cnt1<>0 and @cnt2<>0)
-		print '¸üĞÂ'+str(@cnt1)+'ĞĞ'
+		print 'æ›´æ–°'+str(@cnt1)+'è¡Œ'
 	else if (@cnt1<>0 and @cnt2=0)
-		print 'Ìí¼Ó'+str(@cnt1)+'ĞĞ'
+		print 'æ·»åŠ '+str(@cnt1)+'è¡Œ'
 	else if(@cnt1=0 and @cnt2<>0)
-		print 'É¾³ı'+str(@cnt2)+'ĞĞ'
+		print 'åˆ é™¤'+str(@cnt2)+'è¡Œ'
 end
 go
 /* 
-  µÀÂ·Ç§ÍòÌõ£¬
-  °²È«µÚÒ»Ìõ£¬
-  ĞĞ³µ²»¹æ·¶£¬
-  Ç×ÈËÁ½ĞĞÀá£¡
+  é“è·¯åƒä¸‡æ¡ï¼Œ
+  å®‰å…¨ç¬¬ä¸€æ¡ï¼Œ
+  è¡Œè½¦ä¸è§„èŒƒï¼Œ
+  äº²äººä¸¤è¡Œæ³ªï¼
 */
