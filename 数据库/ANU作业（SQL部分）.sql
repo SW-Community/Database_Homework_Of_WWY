@@ -1,12 +1,12 @@
 /**
- * *ÈÕµÄ ANU´ó×÷Òµ
- * @description ¿ÉÖ±½ÓÔËĞĞ£¬Ò»´ÎĞÔµÃµ½ËùÓĞ½á¹û£¬²»ĞèÒªµ¥¶ÀÑ¡ÖĞ½âÊÍ
+ * ANUå¤§ä½œä¸š
+ * @description å¯ç›´æ¥è¿è¡Œï¼Œä¸€æ¬¡æ€§å¾—åˆ°æ‰€æœ‰ç»“æœï¼Œä¸éœ€è¦å•ç‹¬é€‰ä¸­è§£é‡Š
  * @author Steve
  * @version 1.0.0 2021-11-19
  */
 
 
---½¨Á¢Êı¾İ¿â
+--å»ºç«‹æ•°æ®åº“
 create database ANUProj
 on primary
 (
@@ -28,7 +28,7 @@ go
 use ANUProj
 go
 
---½¨Á¢±í
+--å»ºç«‹è¡¨
 create table UserGroup
 (
 	Groupid int primary key identity(0,1),
@@ -100,7 +100,7 @@ create table Answers
 	Answer varchar(255),
 	StartTime datetime default getdate(),
 	EndTime datetime,
-	ClientIP int,--ÕâÕĞÕë¶ÔÓÃ»§IDÎª0µÄÄäÃûÓÃ»§
+	ClientIP int,--è¿™æ‹›é’ˆå¯¹ç”¨æˆ·IDä¸º0çš„åŒ¿åç”¨æˆ·
 
 	foreign key(Userid) references Users(Userid)
 	on delete cascade,
@@ -122,26 +122,26 @@ create table AnswerDetails
 )
 go
 
---ÒÔÏÂÊÇÒ»Ğ©SQLÓï¾ä£¬ÓÃÀ´Íê³ÉÏÂÁĞ¹¦ÄÜ£º
---Ğ´³É´æ´¢¹ı³Ì»òÕßº¯ÊıÁË£¬·½±ãµ÷ÓÃ
+--ä»¥ä¸‹æ˜¯ä¸€äº›SQLè¯­å¥ï¼Œç”¨æ¥å®Œæˆä¸‹åˆ—åŠŸèƒ½ï¼š
+--å†™æˆå­˜å‚¨è¿‡ç¨‹æˆ–è€…å‡½æ•°äº†ï¼Œæ–¹ä¾¿è°ƒç”¨
 
---²éÑ¯Ã¿¸öÓÃ»§×éÊÕµ½µÄÎÊ¾í
+--æŸ¥è¯¢æ¯ä¸ªç”¨æˆ·ç»„æ”¶åˆ°çš„é—®å·
 create function dbo.GruopsAndSheets()
 returns  table
 as
 return 
 (
-	select UserGroup.Groupid as 'ÓÃ»§×éID',QuestionSheets.Sheetid as 'ÊÕµ½µÄÎÊ¾íID'
+	select UserGroup.Groupid as 'ç”¨æˆ·ç»„ID',QuestionSheets.Sheetid as 'æ”¶åˆ°çš„é—®å·ID'
 	from UserGroup left outer join QuestionSheets on UserGroup.Groupid=QuestionSheets.Groupid
 )
 go
---²éÑ¯Ä³¸öÎÊ¾íÃ»ÓĞ×÷´ğµÄÓÃ»§
+--æŸ¥è¯¢æŸä¸ªé—®å·æ²¡æœ‰ä½œç­”çš„ç”¨æˆ·
 create function WhoNotAnswer(@Sheetid int)
 returns table
 as
 return
 (
-	select Users.Userid as 'ÓÃ»§ID',Users.Username as 'ÓÃ»§Ãû'
+	select Users.Userid as 'ç”¨æˆ·ID',Users.Username as 'ç”¨æˆ·å'
 	from Users
 	where Users.Userid not in(
 		select Answers.Userid
@@ -150,18 +150,18 @@ return
 	)
 )
 go
---²éÑ¯Ã»ÓĞÔÚÈÎºÎÓÃ»§×éµÄÓÃ»§
+--æŸ¥è¯¢æ²¡æœ‰åœ¨ä»»ä½•ç”¨æˆ·ç»„çš„ç”¨æˆ·
 create function WhoIsSingle()
 returns table
 as
 return
 (
-	select Users.Userid as 'ÓÃ»§ID',Users.Username as 'ÓÃ»§Ãû'
+	select Users.Userid as 'ç”¨æˆ·ID',Users.Username as 'ç”¨æˆ·å'
 	from Users
 	where Users.Groupid is null
 )
 go
---É¾³ıÖ¸¶¨Ê±¼ä´´½¨µÄÎÊ¾í
+--åˆ é™¤æŒ‡å®šæ—¶é—´åˆ›å»ºçš„é—®å·
 create procedure DeleteSheets @when datetime
 as
 begin
