@@ -23,7 +23,7 @@ add constraint C3 check (学号 like '[1-9]00[0-9][0-9][0-9][0-9][0-9][0-9]')
 
 /* 验证一下 */
 insert into xs(学号,姓名)
-values('100333333','刘明烨')
+values('100333333','东惜雪')
 
 insert into xs(学号,姓名,总学分)
 values('03','？？',20)
@@ -165,7 +165,7 @@ begin
 	begin
 		if exists(select * from deleted where deleted.专业='计算机中澳')
 		begin
-			print '我真的不想拒绝你，但我们还是接受现实吧，毕竟，这就是生活。。。'
+			print 'ERROR OCCURRED！'
 			rollback transaction
 		end
 		else
