@@ -1,289 +1,288 @@
---ÒªÎÊµÄÎÊÌâ£º
---		Ò»¡¢7£¬10£¬14£¬17£¬20£¬21£¬23£¬24£¬25£¬26£¬27£¬30-34£»
---		¶ş¡¢10£»
---		Èı¡¢È«²¿£¨±íÃ»¿´¶®£¬¿´ÎÄµµ»¹ÊÇÓĞµÄµØ·½²»Ã÷°×£©
+--è¦é—®çš„é—®é¢˜ï¼š
+--		ä¸€ã€7ï¼Œ10ï¼Œ14ï¼Œ17ï¼Œ20ï¼Œ21ï¼Œ23ï¼Œ24ï¼Œ25ï¼Œ26ï¼Œ27ï¼Œ30-34ï¼›
+--		äºŒã€10ï¼›
+--		ä¸‰ã€å…¨éƒ¨ï¼ˆè¡¨æ²¡çœ‹æ‡‚ï¼Œçœ‹æ–‡æ¡£è¿˜æ˜¯æœ‰çš„åœ°æ–¹ä¸æ˜ç™½ï¼‰
 
---Ò»£º¶Ô¸ø¶¨µÄxsglÊı¾İ¿âÍê³ÉÒÔÏÂ²éÑ¯ÒªÇó £º
+--ä¸€ï¼šå¯¹ç»™å®šçš„xsglæ•°æ®åº“å®Œæˆä»¥ä¸‹æŸ¥è¯¢è¦æ±‚ ï¼š
 use xsgl
 go
---¶Ôxs±íÔö¼ÓÉí·İÖ¤ºÅÂëÊôĞÔÁĞ£¬ÒªÇóÊÇ18Î»µÄ×Ö·ûÀàĞÍ
+--å¯¹xsè¡¨å¢åŠ èº«ä»½è¯å·ç å±æ€§åˆ—ï¼Œè¦æ±‚æ˜¯18ä½çš„å­—ç¬¦ç±»å‹
 alter table xs
 add sfzh char(18)
---1£®²éÑ¯ÓĞÖ±½ÓÏÈĞĞ¿ÎµÄ¿Î³ÌµÄ¿ÎºÅ£¬¿ÎÃûºÍÏÈĞĞ¿ÎºÅ¡£
-select kc.¿Î³ÌºÅ,kc.¿Î³ÌÃû,kc.ÏÈĞĞ¿ÎºÅ
+--1ï¼æŸ¥è¯¢æœ‰ç›´æ¥å…ˆè¡Œè¯¾çš„è¯¾ç¨‹çš„è¯¾å·ï¼Œè¯¾åå’Œå…ˆè¡Œè¯¾å·ã€‚
+select kc.è¯¾ç¨‹å·,kc.è¯¾ç¨‹å,kc.å…ˆè¡Œè¯¾å·
 from kc
-where kc.ÏÈĞĞ¿ÎºÅ is not null
---2£®²éÑ¯ÏÈĞĞ¿ÎºÅÊÇ¡°J001¡±ºÅ¿Î³ÌµÄ¿ÎºÅºÍ¿ÎÃû
-select kc.¿Î³ÌºÅ,kc.¿Î³ÌÃû
+where kc.å…ˆè¡Œè¯¾å· is not null
+--2ï¼æŸ¥è¯¢å…ˆè¡Œè¯¾å·æ˜¯â€œJ001â€å·è¯¾ç¨‹çš„è¯¾å·å’Œè¯¾å
+select kc.è¯¾ç¨‹å·,kc.è¯¾ç¨‹å
 from kc
-where kc.ÏÈĞĞ¿ÎºÅ='J001'
---3£®	²éÑ¯ËùÓĞµÄÍøÂç¹¤³ÌÏµĞÕÀî£¬ÕÅ£¬ÍõµÄÍ¬Ñ§µÄÑ§ºÅºÍĞÕÃû
-select xs.Ñ§ºÅ,xs.ĞÕÃû
+where kc.å…ˆè¡Œè¯¾å·='J001'
+--3ï¼	æŸ¥è¯¢æ‰€æœ‰çš„ç½‘ç»œå·¥ç¨‹ç³»å§“æï¼Œå¼ ï¼Œç‹çš„åŒå­¦çš„å­¦å·å’Œå§“å
+select xs.å­¦å·,xs.å§“å
 from xs
-where xs.×¨Òµ='ÍøÂç¹¤³Ì' and xs.ĞÕÃû like '[Àî,ÕÅ,Íõ]%'
---4£®	²éÑ¯²»ÔÚÍøÂç¹¤³ÌºÍĞÅÏ¢¹ÜÀí×¨ÒµÑ§Ï°µÄÑ§ÉúµÄÑ§ºÅºÍĞÕÃû£¬Ïµ±ğ£¬²¢¶Ô²éÑ¯½á¹û°´ÕÕ×¨ÒµµÄÉıĞòºÍÑ§ºÅµÄ½µĞòÅÅĞò
-select xs.Ñ§ºÅ,xs.ĞÕÃû,xs.×¨Òµ
+where xs.ä¸“ä¸š='ç½‘ç»œå·¥ç¨‹' and xs.å§“å like '[æ,å¼ ,ç‹]%'
+--4ï¼	æŸ¥è¯¢ä¸åœ¨ç½‘ç»œå·¥ç¨‹å’Œä¿¡æ¯ç®¡ç†ä¸“ä¸šå­¦ä¹ çš„å­¦ç”Ÿçš„å­¦å·å’Œå§“åï¼Œç³»åˆ«ï¼Œå¹¶å¯¹æŸ¥è¯¢ç»“æœæŒ‰ç…§ä¸“ä¸šçš„å‡åºå’Œå­¦å·çš„é™åºæ’åº
+select xs.å­¦å·,xs.å§“å,xs.ä¸“ä¸š
 from xs
-where xs.×¨Òµ not in('ÍøÂç¹¤³Ì','ĞÅÏ¢¹ÜÀí')
-order by xs.×¨Òµ asc,xs.Ñ§ºÅ desc
---5£®	²éÑ¯Ã¿ÃÅ¿Î²»¼°¸ñµÄÑ§ÉúµÄÈËÊı£¬ÏÔÊ¾¿ÎºÅºÍÈËÊı
-select cj.¿Î³ÌºÅ,COUNT(*)
+where xs.ä¸“ä¸š not in('ç½‘ç»œå·¥ç¨‹','ä¿¡æ¯ç®¡ç†')
+order by xs.ä¸“ä¸š asc,xs.å­¦å· desc
+--5ï¼	æŸ¥è¯¢æ¯é—¨è¯¾ä¸åŠæ ¼çš„å­¦ç”Ÿçš„äººæ•°ï¼Œæ˜¾ç¤ºè¯¾å·å’Œäººæ•°
+select cj.è¯¾ç¨‹å·,COUNT(*)
 from cj
-where cj.³É¼¨<60
-group by cj.¿Î³ÌºÅ
---6£®	²éÑ¯ÄêÁä²»ÔÚ30-35Ö®¼äµÄÍøÂç¹¤³ÌÏµµÄÑ§ÉúµÄÑ§ºÅ£¬ĞÕÃûºÍÄêÁä
-select xs.Ñ§ºÅ,xs.ĞÕÃû,DATEDIFF(yy,xs.³öÉúÊ±¼ä,getdate()) as 'ÄêÁä'
+where cj.æˆç»©<60
+group by cj.è¯¾ç¨‹å·
+--6ï¼	æŸ¥è¯¢å¹´é¾„ä¸åœ¨30-35ä¹‹é—´çš„ç½‘ç»œå·¥ç¨‹ç³»çš„å­¦ç”Ÿçš„å­¦å·ï¼Œå§“åå’Œå¹´é¾„
+select xs.å­¦å·,xs.å§“å,DATEDIFF(yy,xs.å‡ºç”Ÿæ—¶é—´,getdate()) as 'å¹´é¾„'
 from xs
-where xs.×¨Òµ='ÍøÂç¹¤³Ì' and DATEDIFF(yy,xs.³öÉúÊ±¼ä,getdate()) not between 30 and 35
---7£®	²éÑ¯Ã»ÓĞÑ¡ĞŞ¡®J001¡¯ºÅ¿Î³ÌµÄÑ§ÉúµÄÑ§ºÅ£¨×¢ÒâÈ¥µôÖØ¸´µÄÔª×é£©
-select distinct xs.Ñ§ºÅ
+where xs.ä¸“ä¸š='ç½‘ç»œå·¥ç¨‹' and DATEDIFF(yy,xs.å‡ºç”Ÿæ—¶é—´,getdate()) not between 30 and 35
+--7ï¼	æŸ¥è¯¢æ²¡æœ‰é€‰ä¿®â€˜J001â€™å·è¯¾ç¨‹çš„å­¦ç”Ÿçš„å­¦å·ï¼ˆæ³¨æ„å»æ‰é‡å¤çš„å…ƒç»„ï¼‰
+select distinct xs.å­¦å·
 from xs
-where xs.Ñ§ºÅ not in (select cj.Ñ§ºÅ from cj where cj.¿Î³ÌºÅ='J001')
---8£®	²éÑ¯Ã¿¸öÑ§ÉúµÄÑ§ºÅ£¬ĞÕÃû£¬³öÉúÄê·İ£¬²¢¸ø³öÉúÄê·İÆğ±ğÃûÎªchusheng 
-select xs.Ñ§ºÅ,xs.ĞÕÃû,YEAR(xs.³öÉúÊ±¼ä) as 'chusheng'
+where xs.å­¦å· not in (select cj.å­¦å· from cj where cj.è¯¾ç¨‹å·='J001')
+--8ï¼	æŸ¥è¯¢æ¯ä¸ªå­¦ç”Ÿçš„å­¦å·ï¼Œå§“åï¼Œå‡ºç”Ÿå¹´ä»½ï¼Œå¹¶ç»™å‡ºç”Ÿå¹´ä»½èµ·åˆ«åä¸ºchusheng 
+select xs.å­¦å·,xs.å§“å,YEAR(xs.å‡ºç”Ÿæ—¶é—´) as 'chusheng'
 from xs
---9. ²éÑ¯Ã¿¸öÑ§ÉúµÄÑ§ºÅ£¬ĞÕÃûºÍ³öÉúÈÕÆÚ£¨³öÉúÈÕÆÚ¸ù¾İÉí·İÖ¤ºÅÂë²éÑ¯£©
-select xs.Ñ§ºÅ,xs.ĞÕÃû,SUBSTRING(xs.sfzh,7,8) as '³öÉúÈÕÆÚ'
-from xs--ÓÉÓÚÎ´µ¼ÈëÉí·İÖ¤ºÅÂëÊı¾İ£¬ËùÒÔ×îºóÒ»ÁĞÈ«NULL£¨ÁĞ±¾ÉíÒÑ¾­Ìí¼Ó×îÇ°ÃæÓĞ´úÂë£©
---10.²éÑ¯Ñ¡ĞŞJ001¿Î³Ì³É¼¨ÅÅÃûµÚÒ»µÄÍ¬Ñ§µÄÑ§ºÅºÍ³É¼¨
-select cj.Ñ§ºÅ,cj.³É¼¨
+--9. æŸ¥è¯¢æ¯ä¸ªå­¦ç”Ÿçš„å­¦å·ï¼Œå§“åå’Œå‡ºç”Ÿæ—¥æœŸï¼ˆå‡ºç”Ÿæ—¥æœŸæ ¹æ®èº«ä»½è¯å·ç æŸ¥è¯¢ï¼‰
+select xs.å­¦å·,xs.å§“å,SUBSTRING(xs.sfzh,7,8) as 'å‡ºç”Ÿæ—¥æœŸ'
+from xs--ç”±äºæœªå¯¼å…¥èº«ä»½è¯å·ç æ•°æ®ï¼Œæ‰€ä»¥æœ€åä¸€åˆ—å…¨NULLï¼ˆåˆ—æœ¬èº«å·²ç»æ·»åŠ æœ€å‰é¢æœ‰ä»£ç ï¼‰
+--10.æŸ¥è¯¢é€‰ä¿®J001è¯¾ç¨‹æˆç»©æ’åç¬¬ä¸€çš„åŒå­¦çš„å­¦å·å’Œæˆç»©
+select cj.å­¦å·,cj.æˆç»©
 from cj
-where cj.¿Î³ÌºÅ='j001' and cj.³É¼¨ in(
-	select top 1 cj.³É¼¨
+where cj.è¯¾ç¨‹å·='j001' and cj.æˆç»© in(
+	select top 1 cj.æˆç»©
 	from cj
-	where cj.¿Î³ÌºÅ='j001'
-	order by cj.³É¼¨ desc
+	where cj.è¯¾ç¨‹å·='j001'
+	order by cj.æˆç»© desc
 )
---11. ²éÑ¯ËùÓĞÃû×ÖÖĞº¬ÓĞ¡¯Ã÷¡¯»òÕß¡¯Àö¡¯µÄÍ¬Ñ§µÄÑ§ºÅ£¬ĞÕÃû
-select xs.Ñ§ºÅ,xs.ĞÕÃû
+--11. æŸ¥è¯¢æ‰€æœ‰åå­—ä¸­å«æœ‰â€™æ˜â€™æˆ–è€…â€™ä¸½â€™çš„åŒå­¦çš„å­¦å·ï¼Œå§“å
+select xs.å­¦å·,xs.å§“å
 from xs
-where xs.ĞÕÃû like '%[Ã÷,Àö]%'
---12. ²éÑ¯ĞÅÏ¢¹ÜÀí×¨ÒµÄêÁä³¬¹ı20ËêµÄÑ§ÉúµÄÈËÊı
+where xs.å§“å like '%[æ˜,ä¸½]%'
+--12. æŸ¥è¯¢ä¿¡æ¯ç®¡ç†ä¸“ä¸šå¹´é¾„è¶…è¿‡20å²çš„å­¦ç”Ÿçš„äººæ•°
 select COUNT(*)
 from xs
-where xs.×¨Òµ='ĞÅÏ¢¹ÜÀí' and DATEDIFF(yy,xs.³öÉúÊ±¼ä,getdate())>20
---13. ²éÑ¯Æ½¾ù³É¼¨³¬¹ı80·ÖµÄ¿Î³ÌµÄ¿Î³ÌºÅºÍÆ½¾ù³É¼¨
-select cj.¿Î³ÌºÅ,AVG(cj.³É¼¨)
+where xs.ä¸“ä¸š='ä¿¡æ¯ç®¡ç†' and DATEDIFF(yy,xs.å‡ºç”Ÿæ—¶é—´,getdate())>20
+--13. æŸ¥è¯¢å¹³å‡æˆç»©è¶…è¿‡80åˆ†çš„è¯¾ç¨‹çš„è¯¾ç¨‹å·å’Œå¹³å‡æˆç»©
+select cj.è¯¾ç¨‹å·,AVG(cj.æˆç»©)
 from cj
-group by cj.¿Î³ÌºÅ
-having AVG(cj.³É¼¨)>80
---14. ²éÑ¯Ã¿¸ö×¨ÒµËùÓĞĞÕÕÅµÄÈËÊı
-select xs.×¨Òµ,COUNT(*) as 'ÈËÊı'
+group by cj.è¯¾ç¨‹å·
+having AVG(cj.æˆç»©)>80
+--14. æŸ¥è¯¢æ¯ä¸ªä¸“ä¸šæ‰€æœ‰å§“å¼ çš„äººæ•°
+select xs.ä¸“ä¸š,COUNT(*) as 'äººæ•°'
 from xs
-where xs.ĞÕÃû like 'ÕÅ%'
-group by xs.×¨Òµ--ÕâÖÖÇé¿ö£¬¶Ô²»°üº¬ĞÕÕÅµÄÎŞ·¨Êä³ö
---ÒÔÏÂÊÇ×Ô¼ºyyµÄÒ»¸ö·½·¨£º
-select xs1.×¨Òµ,COUNT(xs2.Ñ§ºÅ)
-from xs as xs1 left outer join(select* from xs where xs.ĞÕÃû like 'ÕÅ%')as xs2 on xs1.Ñ§ºÅ=xs2.Ñ§ºÅ
-group by xs1.×¨Òµ
---15. ²éÑ¯¸÷ÖÖĞÕÊÏµÄÈËÊı£¨¼ÙÉèÃ»ÓĞ¸´ĞÕ£©
-select SUBSTRING(xs.ĞÕÃû,1,1) as 'ĞÕÊÏ',COUNT(*) as 'ÈËÊı'
+where xs.å§“å like 'å¼ %'
+group by xs.ä¸“ä¸š--è¿™ç§æƒ…å†µï¼Œå¯¹ä¸åŒ…å«å§“å¼ çš„æ— æ³•è¾“å‡º
+--ä»¥ä¸‹æ˜¯è‡ªå·±yyçš„ä¸€ä¸ªæ–¹æ³•ï¼š
+select xs1.ä¸“ä¸š,COUNT(xs2.å­¦å·)
+from xs as xs1 left outer join(select* from xs where xs.å§“å like 'å¼ %')as xs2 on xs1.å­¦å·=xs2.å­¦å·
+group by xs1.ä¸“ä¸š
+--15. æŸ¥è¯¢å„ç§å§“æ°çš„äººæ•°ï¼ˆå‡è®¾æ²¡æœ‰å¤å§“ï¼‰
+select SUBSTRING(xs.å§“å,1,1) as 'å§“æ°',COUNT(*) as 'äººæ•°'
 from xs
-group by SUBSTRING(xs.ĞÕÃû,1,1)--gruopbyµÄÒÀ¾İÒ²¿ÉÒÔÊÇÁĞ±»º¯Êı´¦Àí¹ıµÄ½á¹û
---16.²éÑ¯Ñ¡ĞŞ¿Î³Ì³¬¹ı5ÃÅµÄÑ§ÉúµÄÑ§ºÅºÍÑ¡¿ÎÃÅÊı£¬ÒÔ¼°Æ½¾ù³É¼¨
-select cj.Ñ§ºÅ,COUNT(*) as 'Ñ¡¿ÎÃÅÊı',AVG(cj.³É¼¨) as 'Æ½¾ù³É¼¨'
+group by SUBSTRING(xs.å§“å,1,1)--gruopbyçš„ä¾æ®ä¹Ÿå¯ä»¥æ˜¯åˆ—è¢«å‡½æ•°å¤„ç†è¿‡çš„ç»“æœ
+--16.æŸ¥è¯¢é€‰ä¿®è¯¾ç¨‹è¶…è¿‡5é—¨çš„å­¦ç”Ÿçš„å­¦å·å’Œé€‰è¯¾é—¨æ•°ï¼Œä»¥åŠå¹³å‡æˆç»©
+select cj.å­¦å·,COUNT(*) as 'é€‰è¯¾é—¨æ•°',AVG(cj.æˆç»©) as 'å¹³å‡æˆç»©'
 from cj
-group by cj.Ñ§ºÅ
+group by cj.å­¦å·
 having COUNT(*)>5
---17. ²éÑ¯Ñ¡ĞŞ¡®J001¡¯¿Î³ÌµÄ³É¼¨ÅÅÃûÇ°ÎåµÄÑ§ÉúµÄÑ§ºÅºÍ³É¼¨
-select top 5 with ties cj.Ñ§ºÅ,cj.³É¼¨
+--17. æŸ¥è¯¢é€‰ä¿®â€˜J001â€™è¯¾ç¨‹çš„æˆç»©æ’åå‰äº”çš„å­¦ç”Ÿçš„å­¦å·å’Œæˆç»©
+select top 5 with ties cj.å­¦å·,cj.æˆç»©
 from cj
-order by cj.³É¼¨ desc--ÅÅÃûÇ°ÎåÔõÃ´Àí½â£¿
---Èç¹ûÏàÍ¬Ãû´ÎË³ÑÓµÄ»°¡£top5+withties¾Í¿ÉÒÔ¸ã¶¨£¬Èç¹ûÒªÇó²¢ÁĞ£¬±ØĞëÊ¹ÓÃÇ¶Ì×²éÑ¯
---18.²éÑ¯Ã¿¸öÑ§ÉúµÄ×îµÍ·ÖºÍÑ¡¿ÎÃÅÊı
-select cj.Ñ§ºÅ, MIN(cj.³É¼¨) as '×îµÍ·Ö',COUNT(cj.¿Î³ÌºÅ) as 'Ñ¡¿ÎÃÅÊı'
+order by cj.æˆç»© desc--æ’åå‰äº”æ€ä¹ˆç†è§£ï¼Ÿ
+--å¦‚æœç›¸åŒåæ¬¡é¡ºå»¶çš„è¯ã€‚top5+withtieså°±å¯ä»¥æå®šï¼Œå¦‚æœè¦æ±‚å¹¶åˆ—ï¼Œå¿…é¡»ä½¿ç”¨åµŒå¥—æŸ¥è¯¢
+--18.æŸ¥è¯¢æ¯ä¸ªå­¦ç”Ÿçš„æœ€ä½åˆ†å’Œé€‰è¯¾é—¨æ•°
+select cj.å­¦å·, MIN(cj.æˆç»©) as 'æœ€ä½åˆ†',COUNT(cj.è¯¾ç¨‹å·) as 'é€‰è¯¾é—¨æ•°'
 from cj
-group by cj.Ñ§ºÅ
---19. ²éÑ¯¸÷¸ö×¨Òµ¸÷ÖÖĞÔ±ğµÄÈËÊı
-select xs.×¨Òµ,xs.ĞÔ±ğ,COUNT(xs.Ñ§ºÅ) as 'ÈËÊı'
+group by cj.å­¦å·
+--19. æŸ¥è¯¢å„ä¸ªä¸“ä¸šå„ç§æ€§åˆ«çš„äººæ•°
+select xs.ä¸“ä¸š,xs.æ€§åˆ«,COUNT(xs.å­¦å·) as 'äººæ•°'
 from xs
-group by xs.×¨Òµ,xs.ĞÔ±ğ
---20.²éÑ¯¸÷¸ö×¨ÒµÄĞÉúµÄÈËÊı
-select xs.×¨Òµ,COUNT(xs.Ñ§ºÅ) as 'ÈËÊı'
+group by xs.ä¸“ä¸š,xs.æ€§åˆ«
+--20.æŸ¥è¯¢å„ä¸ªä¸“ä¸šç”·ç”Ÿçš„äººæ•°
+select xs.ä¸“ä¸š,COUNT(xs.å­¦å·) as 'äººæ•°'
 from xs
-where xs.ĞÔ±ğ='ÄĞ'
-group by xs.×¨Òµ--ºÍ14Ò»ÑùµÄÎÊÌâ
---21. ÁĞ³öÓĞ¶şÃÅÒÔÉÏ¿Î³Ì£¨º¬Á½ÃÅ£©²»¼°¸ñµÄÑ§ÉúµÄÑ§ºÅ¼°¸ÃÑ§ÉúµÄÆ½¾ù³É¼¨£»
-select cj.Ñ§ºÅ,AVG(cj.³É¼¨)as'Æ½¾ù·Ö'
+where xs.æ€§åˆ«='ç”·'
+group by xs.ä¸“ä¸š--å’Œ14ä¸€æ ·çš„é—®é¢˜
+--21. åˆ—å‡ºæœ‰äºŒé—¨ä»¥ä¸Šè¯¾ç¨‹ï¼ˆå«ä¸¤é—¨ï¼‰ä¸åŠæ ¼çš„å­¦ç”Ÿçš„å­¦å·åŠè¯¥å­¦ç”Ÿçš„å¹³å‡æˆç»©ï¼›
+select cj.å­¦å·,AVG(cj.æˆç»©)as'å¹³å‡åˆ†'
 from cj
-where cj.Ñ§ºÅ in(
-	select cj.Ñ§ºÅ
+where cj.å­¦å· in(
+	select cj.å­¦å·
 	from cj
-	where cj.³É¼¨<60
-	group by cj.Ñ§ºÅ
-	having COUNT(cj.¿Î³ÌºÅ)>=2
+	where cj.æˆç»©<60
+	group by cj.å­¦å·
+	having COUNT(cj.è¯¾ç¨‹å·)>=2
 )
-group by cj.Ñ§ºÅ
---22. ÏÔÊ¾Ñ§ºÅµÚÎåÎ»»òÕßµÚÁùÎ»ÊÇ1¡¢2¡¢3¡¢4»òÕß9µÄÑ§ÉúµÄÑ§ºÅ¡¢ĞÕÃû¡¢ĞÔ±ğ¡¢ÄêÁä¼°×¨Òµ£»
-select xs.Ñ§ºÅ,xs.ĞÕÃû,xs.ĞÔ±ğ,DATEDIFF(yy,xs.³öÉúÊ±¼ä,getdate()) as 'ÄêÁä',xs.×¨Òµ
+group by cj.å­¦å·
+--22. æ˜¾ç¤ºå­¦å·ç¬¬äº”ä½æˆ–è€…ç¬¬å…­ä½æ˜¯1ã€2ã€3ã€4æˆ–è€…9çš„å­¦ç”Ÿçš„å­¦å·ã€å§“åã€æ€§åˆ«ã€å¹´é¾„åŠä¸“ä¸šï¼›
+select xs.å­¦å·,xs.å§“å,xs.æ€§åˆ«,DATEDIFF(yy,xs.å‡ºç”Ÿæ—¶é—´,getdate()) as 'å¹´é¾„',xs.ä¸“ä¸š
 from xs
-where SUBSTRING(xs.Ñ§ºÅ,5,1) in('1','2','3','4','9') or SUBSTRING(xs.Ñ§ºÅ,6,1) in('1','2','3','4','9')
---23. ÏÔÊ¾Ñ¡ĞŞ¿Î³ÌÊı×î¶àµÄÑ§ºÅ¼°Ñ¡ĞŞ¿Î³ÌÊı×îÉÙµÄÑ§ºÅ£»
-select cj.Ñ§ºÅ,COUNT(cj.¿Î³ÌºÅ)as'Ñ¡¿ÎÊıÁ¿'
+where SUBSTRING(xs.å­¦å·,5,1) in('1','2','3','4','9') or SUBSTRING(xs.å­¦å·,6,1) in('1','2','3','4','9')
+--23. æ˜¾ç¤ºé€‰ä¿®è¯¾ç¨‹æ•°æœ€å¤šçš„å­¦å·åŠé€‰ä¿®è¯¾ç¨‹æ•°æœ€å°‘çš„å­¦å·ï¼›
+select cj.å­¦å·,COUNT(cj.è¯¾ç¨‹å·)as'é€‰è¯¾æ•°é‡'
 from cj
-group by cj.Ñ§ºÅ
-having COUNT(cj.¿Î³ÌºÅ) in(
-	select top 1 COUNT(cj.¿Î³ÌºÅ)
+group by cj.å­¦å·
+having COUNT(cj.è¯¾ç¨‹å·) in(
+	select top 1 COUNT(cj.è¯¾ç¨‹å·)
 	from cj
-	group by cj.Ñ§ºÅ
-	order by COUNT(cj.¿Î³ÌºÅ) desc--ÓÃALL
-)--Ò»¾ä»°ÄÜ¸ã¶¨Âğ£¿
---24. ²éÑ¯Ñ¡ĞŞÁËA001»òÕßA002»òÕßJ001»òÕßJ002¿Î³ÌµÄÑ§ÉúµÄÑ§ºÅºÍ¿Î³ÌºÅ
-select cj.Ñ§ºÅ,cj.¿Î³ÌºÅ
+	group by cj.å­¦å·
+	order by COUNT(cj.è¯¾ç¨‹å·) desc--ç”¨ALL
+)--ä¸€å¥è¯èƒ½æå®šå—ï¼Ÿ
+--24. æŸ¥è¯¢é€‰ä¿®äº†A001æˆ–è€…A002æˆ–è€…J001æˆ–è€…J002è¯¾ç¨‹çš„å­¦ç”Ÿçš„å­¦å·å’Œè¯¾ç¨‹å·
+select cj.å­¦å·,cj.è¯¾ç¨‹å·
 from cj
-where cj.¿Î³ÌºÅ in('a001','a002','j001','j002')--ÕâÒ²ĞĞ£¿
---25. ²éÑ¯ĞÕÃûÎªÁ½¸ö×ÖµÄ²»Í¬ĞÕÊÏµÄÈËÊı£¬Êä³öĞÕÊÏ£¬ÈËÊı¡£
-select SUBSTRING(xs.ĞÕÃû,1,1) as 'ĞÕÊÏ',COUNT(xs.Ñ§ºÅ) as 'ÈËÊı'
+where cj.è¯¾ç¨‹å· in('a001','a002','j001','j002')--è¿™ä¹Ÿè¡Œï¼Ÿ
+--25. æŸ¥è¯¢å§“åä¸ºä¸¤ä¸ªå­—çš„ä¸åŒå§“æ°çš„äººæ•°ï¼Œè¾“å‡ºå§“æ°ï¼Œäººæ•°ã€‚
+select SUBSTRING(xs.å§“å,1,1) as 'å§“æ°',COUNT(xs.å­¦å·) as 'äººæ•°'
 from xs
-where LEN(xs.ĞÕÃû)=2--Í¨Åä·ûÎÊÌâ»¹ÊÇÓĞµã²»Ã÷°×
-group by SUBSTRING(xs.ĞÕÃû,1,1) 
---26. ²éÑ¯Ñ¡ĞŞÁËA001»òÕßA002»òÕßJ001»òÕßJ002¿Î³ÌµÄÑ§ÉúµÄ¿Î³ÌºÅ£¬¿Î³ÌÃûºÍÑ¡¿ÎÈËÊı
-select cj.¿Î³ÌºÅ,kc.¿Î³ÌÃû,COUNT(cj.Ñ§ºÅ)as'Ñ¡¿ÎÈËÊı'
-from cj inner join kc on cj.¿Î³ÌºÅ=kc.¿Î³ÌºÅ
-where cj.¿Î³ÌºÅ in ('A001','A002','J001','J002')
-group by cj.¿Î³ÌºÅ,kc.¿Î³ÌÃû
-having COUNT(cj.Ñ§ºÅ)>0--Ã»¿´¶®ÌâÒâ
---27.²éÑ¯Ã¿¸öÑ§ÉúµÄÑ§ºÅ£¬ĞÕÃûÒÔ¼°³É¼¨¼°¸ñµÄ¿Î³ÌÃÅÊı
-select xs.Ñ§ºÅ,xs.ĞÕÃû,COUNT(cj1.¿Î³ÌºÅ)as'¼°¸ñÃÅÊı'
-from xs left outer join (select * from cj where cj.³É¼¨>=60)as cj1 on xs.Ñ§ºÅ=cj1.Ñ§ºÅ
-group by xs.Ñ§ºÅ,xs.ĞÕÃû
---28. ²éÑ¯Ã¿¸öÑ§ÉúµÄÑ§ºÅ£¬ĞÕÃûÒÔ¼°Ñ¡¿ÎÃÅÊıºÍÆ½¾ù³É¼¨
-select xs.Ñ§ºÅ,xs.ĞÕÃû,COUNT(cj.¿Î³ÌºÅ)as'Ñ¡¿ÎÃÅÊı',AVG(cj.³É¼¨)as'Æ½¾ù³É¼¨'
-from xs left outer join cj on xs.Ñ§ºÅ=cj.Ñ§ºÅ
-group by xs.Ñ§ºÅ,xs.ĞÕÃû
---29. ²éÑ¯Ñ¡ĞŞÑ¡ĞŞÊı¾İ½á¹¹ºÍ²Ù×÷ÏµÍ³µÄ¿Î³ÌÃûºÍÑ¡¿ÎÈËÊı
-select kc.¿Î³ÌÃû,COUNT(cj.Ñ§ºÅ)as'Ñ¡¿ÎÈËÊı'
-from kc inner join cj on kc.¿Î³ÌºÅ=cj.¿Î³ÌºÅ
-group by kc.¿Î³ÌÃû
-having kc.¿Î³ÌÃû in('Êı¾İ½á¹¹','²Ù×÷ÏµÍ³')
---30. ²éÑ¯Ñ¡¿ÎÈËÊı³¬¹ıÎåÈËµÄ¿Î³ÌºÅºÍ¿Î³ÌÃûÒÔ¼°¸Ã¿Î³ÌµÄ×î¸ß·Ö
-select kc.¿Î³ÌºÅ,kc.¿Î³ÌÃû,MAX(cj.³É¼¨) as '×î¸ß·Ö'
-from kc inner join cj on kc.¿Î³ÌºÅ=cj.¿Î³ÌºÅ
-group by kc.¿Î³ÌºÅ,kc.¿Î³ÌÃû
-having COUNT(cj.Ñ§ºÅ)>5
---31.Îªkc±íÔö¼ÓÏÈĞĞ¿ÎºÅÊôĞÔÁĞ£¬ÒªÇóÉèÖÃÎªkc±í²Î¿¼ÓÚÖ÷ÂëµÄÍâÂë
+where LEN(xs.å§“å)=2--é€šé…ç¬¦é—®é¢˜è¿˜æ˜¯æœ‰ç‚¹ä¸æ˜ç™½
+group by SUBSTRING(xs.å§“å,1,1) 
+--26. æŸ¥è¯¢é€‰ä¿®äº†A001æˆ–è€…A002æˆ–è€…J001æˆ–è€…J002è¯¾ç¨‹çš„å­¦ç”Ÿçš„è¯¾ç¨‹å·ï¼Œè¯¾ç¨‹åå’Œé€‰è¯¾äººæ•°
+select cj.è¯¾ç¨‹å·,kc.è¯¾ç¨‹å,COUNT(cj.å­¦å·)as'é€‰è¯¾äººæ•°'
+from cj inner join kc on cj.è¯¾ç¨‹å·=kc.è¯¾ç¨‹å·
+where cj.è¯¾ç¨‹å· in ('A001','A002','J001','J002')
+group by cj.è¯¾ç¨‹å·,kc.è¯¾ç¨‹å
+having COUNT(cj.å­¦å·)>0--æ²¡çœ‹æ‡‚é¢˜æ„
+--27.æŸ¥è¯¢æ¯ä¸ªå­¦ç”Ÿçš„å­¦å·ï¼Œå§“åä»¥åŠæˆç»©åŠæ ¼çš„è¯¾ç¨‹é—¨æ•°
+select xs.å­¦å·,xs.å§“å,COUNT(cj1.è¯¾ç¨‹å·)as'åŠæ ¼é—¨æ•°'
+from xs left outer join (select * from cj where cj.æˆç»©>=60)as cj1 on xs.å­¦å·=cj1.å­¦å·
+group by xs.å­¦å·,xs.å§“å
+--28. æŸ¥è¯¢æ¯ä¸ªå­¦ç”Ÿçš„å­¦å·ï¼Œå§“åä»¥åŠé€‰è¯¾é—¨æ•°å’Œå¹³å‡æˆç»©
+select xs.å­¦å·,xs.å§“å,COUNT(cj.è¯¾ç¨‹å·)as'é€‰è¯¾é—¨æ•°',AVG(cj.æˆç»©)as'å¹³å‡æˆç»©'
+from xs left outer join cj on xs.å­¦å·=cj.å­¦å·
+group by xs.å­¦å·,xs.å§“å
+--29. æŸ¥è¯¢é€‰ä¿®é€‰ä¿®æ•°æ®ç»“æ„å’Œæ“ä½œç³»ç»Ÿçš„è¯¾ç¨‹åå’Œé€‰è¯¾äººæ•°
+select kc.è¯¾ç¨‹å,COUNT(cj.å­¦å·)as'é€‰è¯¾äººæ•°'
+from kc inner join cj on kc.è¯¾ç¨‹å·=cj.è¯¾ç¨‹å·
+group by kc.è¯¾ç¨‹å
+having kc.è¯¾ç¨‹å in('æ•°æ®ç»“æ„','æ“ä½œç³»ç»Ÿ')
+--30. æŸ¥è¯¢é€‰è¯¾äººæ•°è¶…è¿‡äº”äººçš„è¯¾ç¨‹å·å’Œè¯¾ç¨‹åä»¥åŠè¯¥è¯¾ç¨‹çš„æœ€é«˜åˆ†
+select kc.è¯¾ç¨‹å·,kc.è¯¾ç¨‹å,MAX(cj.æˆç»©) as 'æœ€é«˜åˆ†'
+from kc inner join cj on kc.è¯¾ç¨‹å·=cj.è¯¾ç¨‹å·
+group by kc.è¯¾ç¨‹å·,kc.è¯¾ç¨‹å
+having COUNT(cj.å­¦å·)>5
+--31.ä¸ºkcè¡¨å¢åŠ å…ˆè¡Œè¯¾å·å±æ€§åˆ—ï¼Œè¦æ±‚è®¾ç½®ä¸ºkcè¡¨å‚è€ƒäºä¸»ç çš„å¤–ç 
 alter table kc
-add ÏÈĞĞ¿ÎºÅ char(10)
+add å…ˆè¡Œè¯¾å· char(10)
 
 alter table kc
-add constraint FK_KC foreign key(ÏÈĞĞ¿ÎºÅ) references kc(¿Î³ÌºÅ)
---32. ÎªÑ¡¿Î±íÌí¼ÓÑ§ºÅµÄÉıĞòË÷Òı£¬ÎªÑ¡¿Î±íÌí¼Ó¿Î³ÌºÅµÄ½µĞòË÷Òı
-create nonclustered index MY_INDEX_0000 on xs(Ñ§ºÅ)
-create nonclustered index MY_INDEX_0001 on cj(¿Î³ÌºÅ desc)
+add constraint FK_KC foreign key(å…ˆè¡Œè¯¾å·) references kc(è¯¾ç¨‹å·)
+--32. ä¸ºé€‰è¯¾è¡¨æ·»åŠ å­¦å·çš„å‡åºç´¢å¼•ï¼Œä¸ºé€‰è¯¾è¡¨æ·»åŠ è¯¾ç¨‹å·çš„é™åºç´¢å¼•
+create nonclustered index MY_INDEX_0000 on xs(å­¦å·)
+create nonclustered index MY_INDEX_0001 on cj(è¯¾ç¨‹å· desc)
 exec sp_helpindex xs
-exec sp_helpindex cj--´æ´¢¹ı³ÌµÄ²ÎÊı²»ĞèÒª·ÅÈëÀ¨ºÅÀïÃæ
---33. Îªxs±íÌí¼Ó×¨ÒµÉıĞò£¬Ñ§ºÅ½µĞòµÄË÷Òı
-create nonclustered index MY_INDEX_0520 on xs(×¨Òµ,Ñ§ºÅ desc)
+exec sp_helpindex cj--å­˜å‚¨è¿‡ç¨‹çš„å‚æ•°ä¸éœ€è¦æ”¾å…¥æ‹¬å·é‡Œé¢
+--33. ä¸ºxsè¡¨æ·»åŠ ä¸“ä¸šå‡åºï¼Œå­¦å·é™åºçš„ç´¢å¼•
+create nonclustered index MY_INDEX_0520 on xs(ä¸“ä¸š,å­¦å· desc)
 exec sp_helpindex xs
---34. ÎªXS±íÌí¼Ó×¨ÒµµÄÉıĞòµÄ¾Û¼¯Ë÷Òı£¬×¢ÒâÈç¹ûÒÑ¾­ÓĞÖ÷Âë¾Û¼¯Ë÷ÒıÇëÏÈÉ¾³ı£¬´´½¨ºÃ¾Û¼¯Ë÷ÒıÖ®ºó£¬ÔÙÖØĞÂÌí¼ÓÖ÷ÂëÔ¼Êø
+--34. ä¸ºXSè¡¨æ·»åŠ ä¸“ä¸šçš„å‡åºçš„èšé›†ç´¢å¼•ï¼Œæ³¨æ„å¦‚æœå·²ç»æœ‰ä¸»ç èšé›†ç´¢å¼•è¯·å…ˆåˆ é™¤ï¼Œåˆ›å»ºå¥½èšé›†ç´¢å¼•ä¹‹åï¼Œå†é‡æ–°æ·»åŠ ä¸»ç çº¦æŸ
 exec sp_helpindex xs
---alter table xs drop constraint PK_xs--Ö±½ÓÉ¾³ı»á±¨´í¡°Ô¼Êø 'PK_xs' ÕıÓÉ±í 'cj' µÄÍâ¼üÔ¼Êø 'FK_cj_xs' ÒıÓÃ¡£¡±
---drop index xs.PK_xs--Ö±½ÓÉ¾Õâ¸öÒ²»á±¨´í£º²»ÔÊĞí¶ÔË÷Òı 'xs.PK_xs' ÏÔÊ½µØÊ¹ÓÃ DROP INDEX¡£¸ÃË÷ÒıÕıÓÃÓÚ PRIMARY KEY Ô¼ÊøµÄÇ¿ÖÆÖ´ĞĞ¡£
---ÒÔÏÂÊÇ½â¾ö·½·¨£º
+--alter table xs drop constraint PK_xs--ç›´æ¥åˆ é™¤ä¼šæŠ¥é”™â€œçº¦æŸ 'PK_xs' æ­£ç”±è¡¨ 'cj' çš„å¤–é”®çº¦æŸ 'FK_cj_xs' å¼•ç”¨ã€‚â€
+--drop index xs.PK_xs--ç›´æ¥åˆ è¿™ä¸ªä¹Ÿä¼šæŠ¥é”™ï¼šä¸å…è®¸å¯¹ç´¢å¼• 'xs.PK_xs' æ˜¾å¼åœ°ä½¿ç”¨ DROP INDEXã€‚è¯¥ç´¢å¼•æ­£ç”¨äº PRIMARY KEY çº¦æŸçš„å¼ºåˆ¶æ‰§è¡Œã€‚
+--ä»¥ä¸‹æ˜¯è§£å†³æ–¹æ³•ï¼š
 exec sp_helpindex cj
-exec sp_helpconstraint cj--ÕâÒ»¾äÓÃÀ´²éÑ¯Ô¼ÊøÃû³Æ
+exec sp_helpconstraint cj--è¿™ä¸€å¥ç”¨æ¥æŸ¥è¯¢çº¦æŸåç§°
 
 alter table cj
 drop constraint FK_cj_xs
 
-exec sp_helpconstraint xs--Í¬Àí
+exec sp_helpconstraint xs--åŒç†
 
 alter table xs
 drop constraint PK_xs
 
-create clustered index myindex on xs(×¨Òµ)--OKÒ»Â·Ë³·ç
+create clustered index myindex on xs(ä¸“ä¸š)--OKä¸€è·¯é¡ºé£
 alter table xs
-add constraint myzm primary key(Ñ§ºÅ)--ÕâÑù¾ÍÃ»ÓĞÈÎºÎÎÊÌâÀ²ß¹
---PS£ºË÷ÒıºÍÔ¼Êø£º²»ÊÇÒ»¸ö¶«Î÷£¬Ç°ÕßÓÃ»§ÎŞ¸Ğ£¨ËÙ¶È·½Ãæ³ıÍâ£©£¬ºóÕßÏŞÖÆÄÚÈİ
---´´½¨Ö÷Âë£¨Ô¼Êø£©µÄÊ±ºòÈç¹û»¹Ã»ÓĞ¾Û¼¯Ë÷ÒıÔò×Ô¶¯´´½¨¾Û¼¯Ë÷Òı£¬¶øÇÒ²»ÄÜµ¥¶ÀÉ¾³ı£¬Ö»ÄÜÉ¾³ıÖ÷ÂëÔ¼Êø
---¿ÉÒÔÏÈ´´½¨¾Û¼¯Ë÷Òı£¬ÔÙ´´½¨Ö÷ÂëÔ¼Êø
---×Ô¶¯´´½¨µÄË÷ÒıÃû³ÆºÍÔ¼ÊøÃû³ÆÓë¾ßÌåµÄÈí¼ş°æ±¾ÓĞ¹Ø£¬·Ö±ğÓÃÏµÍ³´æ´¢¹ı³ÌSC_HELPINDEX,SC_HELPCONSTRAINT²é¿´
---35. ²éÑ¯ÓëÀîÇ¿²»ÔÚÍ¬Ò»¸ö×¨ÒµÑ§Ï°µÄÑ§ÉúµÄÑ§ºÅ£¬ĞÕÃûºÍ×¨Òµ
-select xs1.Ñ§ºÅ,xs1.ĞÕÃû,xs1.×¨Òµ
-from xs as xs1 inner join xs as xs2 on xs1.×¨Òµ<>xs2.×¨Òµ--ºÃºÃÏëÏëÕâ¸öÄÚÁ¬½ÓµÄ¹ı³ÌÊÇÔõÃ´Ö´ĞĞµÄ£¬xs1ºÍxs2µÄ×÷ÓÃÓÖÊÇÊ²Ã´£¡£¡£¡£¡£¡
-where xs2.ĞÕÃû='ÀîÇ¿'
+add constraint myzm primary key(å­¦å·)--è¿™æ ·å°±æ²¡æœ‰ä»»ä½•é—®é¢˜å•¦å–
+--PSï¼šç´¢å¼•å’Œçº¦æŸï¼šä¸æ˜¯ä¸€ä¸ªä¸œè¥¿ï¼Œå‰è€…ç”¨æˆ·æ— æ„Ÿï¼ˆé€Ÿåº¦æ–¹é¢é™¤å¤–ï¼‰ï¼Œåè€…é™åˆ¶å†…å®¹
+--åˆ›å»ºä¸»ç ï¼ˆçº¦æŸï¼‰çš„æ—¶å€™å¦‚æœè¿˜æ²¡æœ‰èšé›†ç´¢å¼•åˆ™è‡ªåŠ¨åˆ›å»ºèšé›†ç´¢å¼•ï¼Œè€Œä¸”ä¸èƒ½å•ç‹¬åˆ é™¤ï¼Œåªèƒ½åˆ é™¤ä¸»ç çº¦æŸ
+--å¯ä»¥å…ˆåˆ›å»ºèšé›†ç´¢å¼•ï¼Œå†åˆ›å»ºä¸»ç çº¦æŸ
+--è‡ªåŠ¨åˆ›å»ºçš„ç´¢å¼•åç§°å’Œçº¦æŸåç§°ä¸å…·ä½“çš„è½¯ä»¶ç‰ˆæœ¬æœ‰å…³ï¼Œåˆ†åˆ«ç”¨ç³»ç»Ÿå­˜å‚¨è¿‡ç¨‹SC_HELPINDEX,SC_HELPCONSTRAINTæŸ¥çœ‹
+--35. æŸ¥è¯¢ä¸æå¼ºä¸åœ¨åŒä¸€ä¸ªä¸“ä¸šå­¦ä¹ çš„å­¦ç”Ÿçš„å­¦å·ï¼Œå§“åå’Œä¸“ä¸š
+select xs1.å­¦å·,xs1.å§“å,xs1.ä¸“ä¸š
+from xs as xs1 inner join xs as xs2 on xs1.ä¸“ä¸š<>xs2.ä¸“ä¸š--å¥½å¥½æƒ³æƒ³è¿™ä¸ªå†…è¿æ¥çš„è¿‡ç¨‹æ˜¯æ€ä¹ˆæ‰§è¡Œçš„ï¼Œxs1å’Œxs2çš„ä½œç”¨åˆæ˜¯ä»€ä¹ˆï¼ï¼ï¼ï¼ï¼
+where xs2.å§“å='æå¼º'
 
---¶ş£º¶ÔÊéÉÏµÚ¶şÕÂ¿ÎºóÏ°ÌâµÄ4µÄSPJÊı¾İ¿â¸÷±í²éÑ¯£º 
+--äºŒï¼šå¯¹ä¹¦ä¸Šç¬¬äºŒç« è¯¾åä¹ é¢˜çš„4çš„SPJæ•°æ®åº“å„è¡¨æŸ¥è¯¢ï¼š 
 use spj
 go
---1£®	Çó¹©Ó¦¹¤³ÌJ1Áã¼şµÄ¹©Ó¦ÉÌºÅÂëSNO
+--1ï¼	æ±‚ä¾›åº”å·¥ç¨‹J1é›¶ä»¶çš„ä¾›åº”å•†å·ç SNO
 select distinct spj.sno
 from spj
 where spj.jno='j1'
---2£®	Çó²éÑ¯Ã¿¸ö¹¤³ÌÊ¹ÓÃ²»Í¬¹©Ó¦ÉÌµÄÁã¼şµÄ¸öÊı
-select j.jno,spj.sno,COUNT(SPJ.qty)as'¸öÊı'
+--2ï¼	æ±‚æŸ¥è¯¢æ¯ä¸ªå·¥ç¨‹ä½¿ç”¨ä¸åŒä¾›åº”å•†çš„é›¶ä»¶çš„ä¸ªæ•°
+select j.jno,spj.sno,COUNT(SPJ.qty)as'ä¸ªæ•°'
 from j left outer join spj on j.jno=spj.jno
 group by j.jno,spj.sno
---3£®	Çó¹©Ó¦¹¤³ÌÊ¹ÓÃÁã¼şP3ÊıÁ¿³¬¹ı200µÄ¹¤³ÌºÅJNO
-select spj.jno--´ËÀıËµÃ÷Èç¹ûÏë°Ñ¾ÛºÏº¯Êı½á¹ûµ±×÷²éÑ¯Ìõ¼ş£¬ÄÇÃ´Ö»ÄÜÓÃgroupbyÀ²
+--3ï¼	æ±‚ä¾›åº”å·¥ç¨‹ä½¿ç”¨é›¶ä»¶P3æ•°é‡è¶…è¿‡200çš„å·¥ç¨‹å·JNO
+select spj.jno--æ­¤ä¾‹è¯´æ˜å¦‚æœæƒ³æŠŠèšåˆå‡½æ•°ç»“æœå½“ä½œæŸ¥è¯¢æ¡ä»¶ï¼Œé‚£ä¹ˆåªèƒ½ç”¨groupbyå•¦
 from spj
 where spj.pno='p3'
 group by spj.jno 
 having SUM(spj.qty)>200
---4£®	ÇóÑÕÉ«ÎªºìÉ«ºÍÀ¶É«µÄÁã¼şµÄÁã¼şºÅºÍÃû³Æ
+--4ï¼	æ±‚é¢œè‰²ä¸ºçº¢è‰²å’Œè“è‰²çš„é›¶ä»¶çš„é›¶ä»¶å·å’Œåç§°
 select p.pno,p.pname
 from p
-where p.color in('ºì','À¶')
---5£®	ÇóÊ¹ÓÃÁã¼şÊıÁ¿ÔÚ200-400Ö®¼äµÄ¹¤³ÌºÅ
-select spj.jno--´ËÀıËµÃ÷Èç¹ûÏë°Ñ¾ÛºÏº¯Êı½á¹ûµ±×÷²éÑ¯Ìõ¼ş£¬ÄÇÃ´Ö»ÄÜÓÃgroupbyÀ²
+where p.color in('çº¢','è“')
+--5ï¼	æ±‚ä½¿ç”¨é›¶ä»¶æ•°é‡åœ¨200-400ä¹‹é—´çš„å·¥ç¨‹å·
+select spj.jno--æ­¤ä¾‹è¯´æ˜å¦‚æœæƒ³æŠŠèšåˆå‡½æ•°ç»“æœå½“ä½œæŸ¥è¯¢æ¡ä»¶ï¼Œé‚£ä¹ˆåªèƒ½ç”¨groupbyå•¦
 from spj
 group by spj.jno
 having SUM(spj.qty) between 200 and 400
---6£®	²éÑ¯Ã¿ÖÖÁã¼şµÄÁã¼şºÅ£¬ÒÔ¼°Ê¹ÓÃ¸ÃÁã¼şµÄ¹¤³ÌÊı¡£
-select spj.pno,COUNT(distinct jno)as'Ê¹ÓÃµÄ¹¤³ÌÊıÄ¿'
+--6ï¼	æŸ¥è¯¢æ¯ç§é›¶ä»¶çš„é›¶ä»¶å·ï¼Œä»¥åŠä½¿ç”¨è¯¥é›¶ä»¶çš„å·¥ç¨‹æ•°ã€‚
+select spj.pno,COUNT(distinct jno)as'ä½¿ç”¨çš„å·¥ç¨‹æ•°ç›®'
 from spj
 group by spj.pno
---7£®	²éÑ¯Ã¿¸ö¹¤³ÌËùÊ¹ÓÃµÄ²»Í¬¹©Ó¦ÉÌ¹©Ó¦µÄÁã¼şÊıÁ¿£¬Êä³ö¹¤³ÌºÅ£¬¹©Ó¦ÉÌºÅºÍÁã¼şÁã¼şÊıÁ¿
-select spj.jno,spj.sno,SUM(spj.qty)as'Áã¼şÊıÁ¿'
+--7ï¼	æŸ¥è¯¢æ¯ä¸ªå·¥ç¨‹æ‰€ä½¿ç”¨çš„ä¸åŒä¾›åº”å•†ä¾›åº”çš„é›¶ä»¶æ•°é‡ï¼Œè¾“å‡ºå·¥ç¨‹å·ï¼Œä¾›åº”å•†å·å’Œé›¶ä»¶é›¶ä»¶æ•°é‡
+select spj.jno,spj.sno,SUM(spj.qty)as'é›¶ä»¶æ•°é‡'
 from spj
 group by spj.jno,spj.sno
---8£®	²éÑ¯Ã»ÓĞ¹©Ó¦ÈÎºÎÁã¼şµÄ¹©Ó¦ÉÌºÅ£¬¹©Ó¦ÉÌÃû³Æ
+--8ï¼	æŸ¥è¯¢æ²¡æœ‰ä¾›åº”ä»»ä½•é›¶ä»¶çš„ä¾›åº”å•†å·ï¼Œä¾›åº”å•†åç§°
 select s.sno,s.sname
 from s left outer join spj on s.sno=spj.sno
 where spj.pno is null
---9£®	²éÑ¯Ê¹ÓÃÁËS1¹©Ó¦ÉÌ¹©Ó¦µÄºìÉ«Áã¼şµÄ¹¤³ÌºÅºÍ¹¤³ÌÃû
+--9ï¼	æŸ¥è¯¢ä½¿ç”¨äº†S1ä¾›åº”å•†ä¾›åº”çš„çº¢è‰²é›¶ä»¶çš„å·¥ç¨‹å·å’Œå·¥ç¨‹å
 select j.jno,j.jname
 from s inner join spj on s.sno=spj.sno inner join p on spj.pno=p.pno inner join j on spj.jno=j.jno
-where s.sname='s1' and p.color='ºì'
+where s.sname='s1' and p.color='çº¢'
 
 select j.jno,j.jname
 from s , spj,p,j 
 where s.sno=spj.sno and  spj.pno=p.pno and  spj.jno=j.jno
- and s.sno='s1' and p.color='ºì'
---10.	²éÑ¯¸÷¸ö¹¤³ÌµÄ¹¤³ÌºÅ£¬¹¤³ÌÃûÒÔ¼°ËùÊ¹ÓÃµÄµÄÁã¼şÊıÁ¿
-select j.jno,j.jname,ISNULL(SUM(spj.qty),'0')as'Ê¹ÓÃÁã¼şÊıÁ¿'
+ and s.sno='s1' and p.color='çº¢'
+--10.	æŸ¥è¯¢å„ä¸ªå·¥ç¨‹çš„å·¥ç¨‹å·ï¼Œå·¥ç¨‹åä»¥åŠæ‰€ä½¿ç”¨çš„çš„é›¶ä»¶æ•°é‡
+select j.jno,j.jname,ISNULL(SUM(spj.qty),'0')as'ä½¿ç”¨é›¶ä»¶æ•°é‡'
 from j left outer join spj on j.jno=spj.jno
 group by j.jno,j.jname
---¾­²âÊÔ·¢ÏÖÒÔÏÂÎÊÌâ
---sum(column) ÊÇ¶ÔËùÓĞÁĞµÄÖµÇóºÍ¡£
---Èç¹ûÃ»²éµ½Êı¾İ£¬sumµÄÖµÎªnull
---Èç¹û²éµ½µÄÊı¾İÕâÒ»ÁĞÖµÎªnull£¬sumµÄÖµÎªnull
---Èç¹û²éµ½Êı¾İÓĞnull£¬Ò²ÓĞ²»ÊÇnullµÄ£¬ÄÇÃ´sumµÄÖµÎªËùÓĞ·Ç¿ÕÖµµÄºÍ¡£
+--ç»æµ‹è¯•å‘ç°ä»¥ä¸‹é—®é¢˜
+--sum(column) æ˜¯å¯¹æ‰€æœ‰åˆ—çš„å€¼æ±‚å’Œã€‚
+--å¦‚æœæ²¡æŸ¥åˆ°æ•°æ®ï¼Œsumçš„å€¼ä¸ºnull
+--å¦‚æœæŸ¥åˆ°çš„æ•°æ®è¿™ä¸€åˆ—å€¼ä¸ºnullï¼Œsumçš„å€¼ä¸ºnull
+--å¦‚æœæŸ¥åˆ°æ•°æ®æœ‰nullï¼Œä¹Ÿæœ‰ä¸æ˜¯nullçš„ï¼Œé‚£ä¹ˆsumçš„å€¼ä¸ºæ‰€æœ‰éç©ºå€¼çš„å’Œã€‚
 
---Èı£®¶ÔNorthwindÊı¾İ¿âÍê³ÉÒ»ÏÂ²éÑ¯
---´«ËÍÃÅ£ºhttps://www.cnblogs.com/camelroyu/p/4284274.html
+--ä¸‰ï¼å¯¹Northwindæ•°æ®åº“å®Œæˆä¸€ä¸‹æŸ¥è¯¢
+--ä¼ é€é—¨ï¼šhttps://www.cnblogs.com/camelroyu/p/4284274.html
 use Northwind
 go
---1.²éÑ¯Ã¿¸ö¶©µ¥¹ºÂò²úÆ·µÄÊıÁ¿ºÍ×Ü½ğ¶î£¬ÏÔÊ¾¶©µ¥ºÅ£¬ÊıÁ¿£¬×Ü½ğ¶î
+--1.æŸ¥è¯¢æ¯ä¸ªè®¢å•è´­ä¹°äº§å“çš„æ•°é‡å’Œæ€»é‡‘é¢ï¼Œæ˜¾ç¤ºè®¢å•å·ï¼Œæ•°é‡ï¼Œæ€»é‡‘é¢
 select [Order Details].OrderID,COUNT([Order Details].ProductID),SUM([Order Details].UnitPrice*[Order Details].Quantity*(1-[Order Details].Discount))
 from [Order Details]
-group by [Order Details].OrderID--ÕâĞĞÃ´
---2. ²éÑ¯Ã¿¸öÔ±¹¤ÔÚ7ÔÂ·İ´¦Àí¶©µ¥µÄÊıÁ¿
-select Orders.EmployeeID,COUNT(Orders.OrderID)as'¶©µ¥ÊıÁ¿'
+group by [Order Details].OrderID--è¿™è¡Œä¹ˆ
+--2. æŸ¥è¯¢æ¯ä¸ªå‘˜å·¥åœ¨7æœˆä»½å¤„ç†è®¢å•çš„æ•°é‡
+select Orders.EmployeeID,COUNT(Orders.OrderID)as'è®¢å•æ•°é‡'
 from Orders
 where MONTH(Orders.ShippedDate)=7
 group by Orders.EmployeeID
---3. ²éÑ¯Ã¿¸ö¹Ë¿ÍµÄ¶©µ¥×ÜÊı£¬ÏÔÊ¾¹Ë¿ÍID£¬¶©µ¥×ÜÊı
-select Orders.CustomerID,COUNT(Orders.OrderID)as'¶©µ¥×ÜÊı'
+--3. æŸ¥è¯¢æ¯ä¸ªé¡¾å®¢çš„è®¢å•æ€»æ•°ï¼Œæ˜¾ç¤ºé¡¾å®¢IDï¼Œè®¢å•æ€»æ•°
+select Orders.CustomerID,COUNT(Orders.OrderID)as'è®¢å•æ€»æ•°'
 from Orders
 group by Orders.CustomerID
---4. ²éÑ¯Ã¿¸ö¹Ë¿ÍµÄ¶©µ¥×ÜÊıºÍ¶©µ¥×Ü½ğ¶î
-select Customers.CustomerID,COUNT(Orders.OrderID)as'¶©µ¥×ÜÊı',SUM([Order Details].UnitPrice*[Order Details].Quantity*(1-[Order Details].Discount))
+--4. æŸ¥è¯¢æ¯ä¸ªé¡¾å®¢çš„è®¢å•æ€»æ•°å’Œè®¢å•æ€»é‡‘é¢
+select Customers.CustomerID,COUNT(Orders.OrderID)as'è®¢å•æ€»æ•°',SUM([Order Details].UnitPrice*[Order Details].Quantity*(1-[Order Details].Discount))
 from Customers left outer join Orders on Customers.CustomerID=Orders.CustomerID full outer join [Order Details] on Orders.OrderID=[Order Details].OrderID
 group by Customers.CustomerID
---5. ²éÑ¯Ã¿ÖÖ²úÆ·µÄÂô³ö×ÜÊıºÍ×Ü½ğ¶î
+--5. æŸ¥è¯¢æ¯ç§äº§å“çš„å–å‡ºæ€»æ•°å’Œæ€»é‡‘é¢
 select Categories.CategoryID,SUM([Order Details].Quantity)
 from Categories left outer join Products on Categories.CategoryID=Products.CategoryID left outer join [Order Details] on Products.ProductID=[Order Details].ProductID
 group by Categories.CategoryID
---ºó¼Ç£º´ò¹¤¿à´ò¹¤ÀÛ£¬CRUD²»³¥Ãü°¡¡£¡£¡£
---Ğ¡Éùbb£ºÌıËµÍâ°ü¹«Ë¾¾ÍÊÇ¸ÉÕâ¸öµÄ¡£¡£¡£¿ÉÅÂ
+--åè®°ï¼šæ‰“å·¥è‹¦æ‰“å·¥ç´¯ï¼ŒCRUDä¸å¿å‘½å•Šã€‚ã€‚ã€‚
